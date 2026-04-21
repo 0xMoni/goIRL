@@ -147,7 +147,7 @@ export default async function ProfilePage() {
         {rsvpEvents.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-black/15 p-10 text-center text-sm text-black/60 dark:border-white/15 dark:text-white/60">
             <p className="mb-2 text-base font-medium text-black dark:text-white">
-              No saved events yet — start with one.
+              No saved events yet - start with one.
             </p>
             <p>
               <Link href="/dashboard" className="font-medium underline">

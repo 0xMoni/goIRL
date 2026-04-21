@@ -52,7 +52,7 @@ export function urgencyLabel(u: Urgency): string | null {
 }
 
 // Simple, honest ranking. Featured events float up. After that, it's
-// urgency + topic/city match, then date. No magical ML — just signals
+// urgency + topic/city match, then date. No magical ML - just signals
 // we can explain to users.
 export function scoreEvent(event: TechEvent, session: Session | null, now = new Date()): number {
   let score = 0;
@@ -60,7 +60,7 @@ export function scoreEvent(event: TechEvent, session: Session | null, now = new 
   // Featured events always lead
   if (event.isFeatured) score += 200;
 
-  // Topic match — biggest personalization lever
+  // Topic match - biggest personalization lever
   if (session?.followedTopics?.length) {
     const matches = event.topics.filter((t) => session.followedTopics.includes(t)).length;
     score += matches * 40;
@@ -76,7 +76,7 @@ export function scoreEvent(event: TechEvent, session: Session | null, now = new 
   }
   if (event.isVirtual) score += 5; // virtual is always geographically viable
 
-  // Urgency boost — imminent events float up
+  // Urgency boost - imminent events float up
   const u = detectUrgency(event, now);
   if (u === "happening-today") score += 40;
   else if (u === "closing-soon") score += 30;

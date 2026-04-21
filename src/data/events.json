@@ -1,7 +1,7 @@
 [
   {
     "id": "blr-ai-builders-may-2026",
-    "title": "Bengaluru AI Builders — Agents in Production",
+    "title": "Bengaluru AI Builders - Agents in Production",
     "description": "Monthly meetup for engineers shipping AI agents. Three lightning talks from teams running agents in production, followed by an open Q&A and demo room. Food and drinks sponsored. Bring a laptop if you want to demo.",
     "startsAt": "2026-05-08T18:30:00+05:30",
     "endsAt": "2026-05-08T21:30:00+05:30",
@@ -25,7 +25,7 @@
       "beginner-welcome"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Hear from engineers actually running AI agents in production — not just demos.",
+    "whyAttend": "Hear from engineers actually running AI agents in production - not just demos.",
     "perks": [
       "Free food & drinks",
       "Networking with Bengaluru AI builders",
@@ -42,12 +42,12 @@
       "researchers"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
     "id": "hackblr-2026",
-    "title": "HackBLR 2026 — Bengaluru's Biggest Student Hackathon",
+    "title": "HackBLR 2026 - Bengaluru's Biggest Student Hackathon",
     "description": "36-hour in-person hackathon. Tracks: AI agents, dev tools, climate tech, and open innovation. ₹5L in prizes, mentors from top startups, and free accommodation for out-of-city teams.",
     "startsAt": "2026-05-23T09:00:00+05:30",
     "endsAt": "2026-05-24T18:00:00+05:30",
@@ -93,7 +93,7 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Solo? Team-matching happens on day zero — you won't stay alone for long.",
+    "comfortNote": "Solo? Team-matching happens on day zero - you won't stay alone for long.",
     "isFeatured": true
   },
   {
@@ -123,7 +123,7 @@
       "student-discount"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "India's biggest React event — 24 speakers across 2 days. 40% off for students.",
+    "whyAttend": "India's biggest React event - 24 speakers across 2 days. 40% off for students.",
     "perks": [
       "Certificate of attendance",
       "Student discount (40% off)",
@@ -140,12 +140,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "pydata-blr-may-2026",
-    "title": "PyData Bengaluru — Vector DBs & RAG at Scale",
+    "title": "PyData Bengaluru - Vector DBs & RAG at Scale",
     "description": "Talks on pgvector vs. Qdrant vs. Weaviate in production, building retrieval pipelines that actually work, and evaluation tooling for RAG systems.",
     "startsAt": "2026-05-17T10:00:00+05:30",
     "endsAt": "2026-05-17T13:00:00+05:30",
@@ -189,12 +189,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
     "id": "ethindia-hyd-2026",
-    "title": "ETHIndia Hyderabad — Hacker House",
+    "title": "ETHIndia Hyderabad - Hacker House",
     "description": "One-week hacker house for builders working on Ethereum and L2s. Daily workshops, co-working space, and demo day on Friday. Travel grants available for students outside Hyderabad.",
     "startsAt": "2026-07-06T10:00:00+05:30",
     "endsAt": "2026-07-12T20:00:00+05:30",
@@ -220,7 +220,7 @@
       "hands-on"
     ],
     "difficulty": "advanced",
-    "whyAttend": "Week-long immersion with serious Ethereum builders — rare opportunity in India.",
+    "whyAttend": "Week-long immersion with serious Ethereum builders - rare opportunity in India.",
     "perks": [
       "Travel grants",
       "Co-working space",
@@ -238,7 +238,7 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
@@ -290,7 +290,7 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
@@ -322,7 +322,7 @@
       "swag"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Free full-day AWS conference with lunch and swag — rare combination.",
+    "whyAttend": "Free full-day AWS conference with lunch and swag - rare combination.",
     "perks": [
       "Free lunch",
       "AWS certification vouchers (raffle)",
@@ -340,7 +340,7 @@
       "researchers"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
@@ -387,12 +387,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "design-jam-blr-may-2026",
-    "title": "Design Jam Bengaluru — Redesign a Govt Website",
+    "title": "Design Jam Bengaluru - Redesign a Govt Website",
     "description": "Informal 4-hour design jam. Pick any Indian government service website, redesign a single user flow end to end, present in 3 minutes.",
     "startsAt": "2026-05-24T14:00:00+05:30",
     "endsAt": "2026-05-24T18:00:00+05:30",
@@ -436,12 +436,12 @@
       "pms"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Come alone — you'll be paired with a small team for the jam, instant friends.",
+    "comfortNote": "Come alone - you'll be paired with a small team for the jam, instant friends.",
     "isFeatured": true
   },
   {
     "id": "rootconf-2026",
-    "title": "Rootconf 2026 — Infra & SRE",
+    "title": "Rootconf 2026 - Infra & SRE",
     "description": "India's infrastructure and SRE conference. Keynotes, deep-dive talks on Kubernetes at scale, incident response, platform engineering, and cost optimization.",
     "startsAt": "2026-06-27T09:00:00+05:30",
     "endsAt": "2026-06-28T18:00:00+05:30",
@@ -479,12 +479,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "unstop-product-case-may-2026",
-    "title": "Unstop Product Case Challenge — Flipkart Edition",
+    "title": "Unstop Product Case Challenge - Flipkart Edition",
     "description": "Case competition for undergrad and grad students. Submit a product strategy deck for a given Flipkart growth problem. Shortlisted teams present to a panel of Flipkart PMs.",
     "startsAt": "2026-05-02T00:00:00+05:30",
     "endsAt": "2026-05-20T23:59:00+05:30",
@@ -529,12 +529,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
     "id": "startup-grind-del-may-2026",
-    "title": "Startup Grind Delhi — Fireside with Nithin Kamath",
+    "title": "Startup Grind Delhi - Fireside with Nithin Kamath",
     "description": "Founders' fireside chat with Nithin Kamath (Zerodha) on building patient businesses in India. 90-minute Q&A, followed by a founder mixer.",
     "startsAt": "2026-05-15T18:30:00+05:30",
     "endsAt": "2026-05-15T21:00:00+05:30",
@@ -576,7 +576,7 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
@@ -621,12 +621,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
     "id": "rust-blr-may-2026",
-    "title": "Rust Bengaluru — WebAssembly Deep Dive",
+    "title": "Rust Bengaluru - WebAssembly Deep Dive",
     "description": "Two talks: compiling Rust to WASM for browser-side ML, and wasmtime in production. Monthly community meetup.",
     "startsAt": "2026-05-30T15:00:00+05:30",
     "endsAt": "2026-05-30T18:00:00+05:30",
@@ -651,7 +651,7 @@
       "free-food"
     ],
     "difficulty": "advanced",
-    "whyAttend": "Advanced WASM content rare in India — both speakers are shipping it in production.",
+    "whyAttend": "Advanced WASM content rare in India - both speakers are shipping it in production.",
     "perks": [
       "Free pizza",
       "Rust stickers",
@@ -668,12 +668,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Hallway track is the real event — most attendees come solo.",
+    "comfortNote": "Hallway track is the real event - most attendees come solo.",
     "isFeatured": false
   },
   {
     "id": "blrdroid-may-2026",
-    "title": "BlrDroid — Android & Kotlin Monthly",
+    "title": "BlrDroid - Android & Kotlin Monthly",
     "description": "Three talks on Jetpack Compose performance, Kotlin Multiplatform for cross-platform teams, and debugging ANRs at scale.",
     "startsAt": "2026-05-10T14:00:00+05:30",
     "endsAt": "2026-05-10T17:30:00+05:30",
@@ -697,7 +697,7 @@
       "talks-only"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Bengaluru's oldest Android community — senior engineers from Swiggy, Flipkart, Google show up.",
+    "whyAttend": "Bengaluru's oldest Android community - senior engineers from Swiggy, Flipkart, Google show up.",
     "perks": [
       "Free food",
       "Community swag",
@@ -714,12 +714,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Hallway track is the real event — most attendees come solo.",
+    "comfortNote": "Hallway track is the real event - most attendees come solo.",
     "isFeatured": false
   },
   {
     "id": "nullcon-mum-2026",
-    "title": "Nullcon Mumbai — Offensive Security",
+    "title": "Nullcon Mumbai - Offensive Security",
     "description": "Three-day security conference with red team, AppSec, and cloud security tracks. Full training day on binary exploitation.",
     "startsAt": "2026-07-23T09:00:00+05:30",
     "endsAt": "2026-07-25T18:00:00+05:30",
@@ -759,7 +759,7 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Hallway track is the real event — most attendees come solo.",
+    "comfortNote": "Hallway track is the real event - most attendees come solo.",
     "isFeatured": false
   },
   {
@@ -791,7 +791,7 @@
       "free-food"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Sponsor prizes from Polygon/Solana/Vercel on top of the main pool — lots of ways to win.",
+    "whyAttend": "Sponsor prizes from Polygon/Solana/Vercel on top of the main pool - lots of ways to win.",
     "perks": [
       "Travel reimbursement for top 20 teams",
       "Sponsor prizes",
@@ -809,12 +809,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
     "id": "fifth-elephant-2026",
-    "title": "The Fifth Elephant 2026 — Data & ML",
+    "title": "The Fifth Elephant 2026 - Data & ML",
     "description": "India's largest data and ML conference. Tracks on LLM ops, feature stores, experimentation platforms, and applied ML at Indian scale.",
     "startsAt": "2026-07-11T09:00:00+05:30",
     "endsAt": "2026-07-12T18:00:00+05:30",
@@ -839,7 +839,7 @@
       "student-discount"
     ],
     "difficulty": "advanced",
-    "whyAttend": "Applied ML at Indian scale — the only conference where you'll hear about ML infra at 1B-user products.",
+    "whyAttend": "Applied ML at Indian scale - the only conference where you'll hear about ML infra at 1B-user products.",
     "perks": [
       "Certificate",
       "Speaker dinner access",
@@ -856,12 +856,12 @@
       "researchers"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "figma-config-india-watch-2026",
-    "title": "Figma Config 2026 — Bengaluru Watch Party",
+    "title": "Figma Config 2026 - Bengaluru Watch Party",
     "description": "Live watch party for Figma Config keynotes, with local designers sharing reactions and takeaways.",
     "startsAt": "2026-05-14T19:00:00+05:30",
     "endsAt": "2026-05-14T23:00:00+05:30",
@@ -886,7 +886,7 @@
       "free-food"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Watch Config together — way more fun than alone, plus you meet every designer in BLR.",
+    "whyAttend": "Watch Config together - way more fun than alone, plus you meet every designer in BLR.",
     "perks": [
       "Free drinks & snacks",
       "Figma swag giveaways",
@@ -905,12 +905,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
     "id": "chennai-ai-meetup-june-2026",
-    "title": "Chennai AI — Fine-Tuning Open Models",
+    "title": "Chennai AI - Fine-Tuning Open Models",
     "description": "Hands-on session on fine-tuning Llama-family models with LoRA and QLoRA on consumer GPUs. Bring your laptop.",
     "startsAt": "2026-06-14T10:00:00+05:30",
     "endsAt": "2026-06-14T14:00:00+05:30",
@@ -951,7 +951,7 @@
       "researchers"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
@@ -998,7 +998,7 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
@@ -1043,7 +1043,7 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
@@ -1073,7 +1073,7 @@
       "contributor-day"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Contributor day is gold for first-time open-source contributors — mentors walk you through your first PR.",
+    "whyAttend": "Contributor day is gold for first-time open-source contributors - mentors walk you through your first PR.",
     "perks": [
       "Lunch included",
       "Certificate",
@@ -1091,7 +1091,7 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
@@ -1121,7 +1121,7 @@
       "free-food"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Indian-scale cost optimization content — stuff you won't hear at US-centric K8s talks.",
+    "whyAttend": "Indian-scale cost optimization content - stuff you won't hear at US-centric K8s talks.",
     "perks": [
       "Lunch + snacks",
       "Swag",
@@ -1137,12 +1137,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "seeds-del-may-2026",
-    "title": "Seeds Delhi — Product People Meetup",
+    "title": "Seeds Delhi - Product People Meetup",
     "description": "Casual product meetup for PMs, designers, and founders. Two 15-minute case studies each month plus structured mingling.",
     "startsAt": "2026-05-28T19:00:00+05:30",
     "endsAt": "2026-05-28T22:00:00+05:30",
@@ -1167,7 +1167,7 @@
       "beginner-welcome"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Low-pressure product community in Delhi — best place to find your first PM mentor.",
+    "whyAttend": "Low-pressure product community in Delhi - best place to find your first PM mentor.",
     "perks": [
       "Pay what you can",
       "Structured mingling time",
@@ -1190,7 +1190,7 @@
   },
   {
     "id": "claude-builders-blr-may-2026",
-    "title": "Claude Builders Bengaluru — Agents & Computer Use",
+    "title": "Claude Builders Bengaluru - Agents & Computer Use",
     "description": "Monthly meetup for developers building with Claude. This edition: agentic loops, computer use API deep dive, and cost optimization patterns. Hosted by Anthropic's India community team.",
     "startsAt": "2026-05-20T18:30:00+05:30",
     "endsAt": "2026-05-20T21:30:00+05:30",
@@ -1214,7 +1214,7 @@
       "api-credits"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Straight from the Anthropic team — rare chance to get unfiltered answers on production Claude usage.",
+    "whyAttend": "Straight from the Anthropic team - rare chance to get unfiltered answers on production Claude usage.",
     "perks": [
       "Free food",
       "$50 Claude API credits for attendees",
@@ -1233,7 +1233,7 @@
       "founders"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Small room, Anthropic team mingles openly — easy to walk up and ask anything.",
+    "comfortNote": "Small room, Anthropic team mingles openly - easy to walk up and ask anything.",
     "isFeatured": true
   },
   {
@@ -1262,7 +1262,7 @@
       "free-food"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Best way to understand DevDay announcements — watch with other builders who'll interpret it in real time.",
+    "whyAttend": "Best way to understand DevDay announcements - watch with other builders who'll interpret it in real time.",
     "perks": [
       "Free pizza + drinks",
       "Post-keynote panel",
@@ -1280,12 +1280,12 @@
       "hobbyists"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Watch parties are the easiest solo event — everyone's watching the same screen.",
+    "comfortNote": "Watch parties are the easiest solo event - everyone's watching the same screen.",
     "isFeatured": true
   },
   {
     "id": "gdg-cloud-blr-may-2026",
-    "title": "GDG Cloud Bengaluru — Gemini API Hands-On",
+    "title": "GDG Cloud Bengaluru - Gemini API Hands-On",
     "description": "Hands-on workshop building multimodal apps with Gemini API. Laptops required. Google engineers on-site to help.",
     "startsAt": "2026-05-25T10:00:00+05:30",
     "endsAt": "2026-05-25T14:00:00+05:30",
@@ -1310,7 +1310,7 @@
       "beginner-welcome"
     ],
     "difficulty": "beginner",
-    "whyAttend": "First Gemini API workshop in BLR — leave having shipped a multimodal demo.",
+    "whyAttend": "First Gemini API workshop in BLR - leave having shipped a multimodal demo.",
     "perks": [
       "Google Cloud credits",
       "Swag",
@@ -1329,12 +1329,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
     "id": "product-school-mum-may-2026",
-    "title": "Product Management Beginners Workshop — Mumbai",
+    "title": "Product Management Beginners Workshop - Mumbai",
     "description": "3-hour intro to product management for students and early-career folks. Covers discovery, metrics, PRDs, and how to break into PM roles in India.",
     "startsAt": "2026-05-11T10:00:00+05:30",
     "endsAt": "2026-05-11T13:00:00+05:30",
@@ -1378,12 +1378,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
     "id": "smashing-conf-online-2026",
-    "title": "SmashingConf Online — CSS & Layout",
+    "title": "SmashingConf Online - CSS & Layout",
     "description": "Two days of advanced CSS, container queries, and modern layout techniques. Fully online, IST-friendly sessions in the evening.",
     "startsAt": "2026-06-25T17:30:00+05:30",
     "endsAt": "2026-06-26T23:30:00+05:30",
@@ -1407,7 +1407,7 @@
       "replay-available"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Advanced CSS done right — the only place you'll see complete container queries walkthroughs.",
+    "whyAttend": "Advanced CSS done right - the only place you'll see complete container queries walkthroughs.",
     "perks": [
       "30-day replay access",
       "Resource bundle",
@@ -1424,13 +1424,13 @@
       "designers"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
     "id": "hack-hyd-student-2026",
     "title": "HackHyderabad Student Hackathon",
-    "description": "Student-only 24-hour hackathon run by student communities across Hyderabad colleges. Main track + sponsor tracks. Team size 2–4.",
+    "description": "Student-only 24-hour hackathon run by student communities across Hyderabad colleges. Main track + sponsor tracks. Team size 2-4.",
     "startsAt": "2026-05-31T09:00:00+05:30",
     "endsAt": "2026-06-01T09:00:00+05:30",
     "timezone": "Asia/Kolkata",
@@ -1456,7 +1456,7 @@
       "swag"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Student-only means no pro teams from companies — much fairer shot at winning.",
+    "whyAttend": "Student-only means no pro teams from companies - much fairer shot at winning.",
     "perks": [
       "₹2L prizes",
       "Free food + stay",
@@ -1476,12 +1476,12 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
     "id": "tech-women-india-may-2026",
-    "title": "Tech Women India — Career Pivots Panel",
+    "title": "Tech Women India - Career Pivots Panel",
     "description": "Panel with 4 women who pivoted into tech mid-career. Discussion on transferable skills, interview prep, and finding mentors. Open to all genders.",
     "startsAt": "2026-05-18T19:00:00+05:30",
     "endsAt": "2026-05-18T21:30:00+05:30",
@@ -1524,7 +1524,7 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
@@ -1554,7 +1554,7 @@
       "certificate"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "The DevRel community is small and close-knit — this is where jobs get filled.",
+    "whyAttend": "The DevRel community is small and close-knit - this is where jobs get filled.",
     "perks": [
       "Certificate",
       "Speaker dinner access",
@@ -1570,12 +1570,12 @@
       "founders"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "pwa-india-may-2026",
-    "title": "PWA India — Service Workers & Offline-First",
+    "title": "PWA India - Service Workers & Offline-First",
     "description": "Two deep-dive talks on service workers, Background Sync, and patterns for building offline-first PWAs. Includes a live debugging session.",
     "startsAt": "2026-05-22T18:30:00+05:30",
     "endsAt": "2026-05-22T21:00:00+05:30",
@@ -1600,7 +1600,7 @@
       "talks-only"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Offline-first patterns are critical for Indian internet conditions — actual applicable content.",
+    "whyAttend": "Offline-first patterns are critical for Indian internet conditions - actual applicable content.",
     "perks": [
       "Free entry",
       "Snacks + chai",
@@ -1616,7 +1616,7 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Hallway track is the real event — most attendees come solo.",
+    "comfortNote": "Hallway track is the real event - most attendees come solo.",
     "isFeatured": false
   },
   {
@@ -1646,7 +1646,7 @@
       "beginner-welcome"
     ],
     "difficulty": "beginner",
-    "whyAttend": "Solve real problems with real NGOs — your work actually gets used, not shelved.",
+    "whyAttend": "Solve real problems with real NGOs - your work actually gets used, not shelved.",
     "perks": [
       "₹3L prize pool",
       "NGO mentorship",
@@ -1665,12 +1665,12 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
     "id": "beginner-python-pune-may-2026",
-    "title": "Beginner Python Bootcamp — Pune",
+    "title": "Beginner Python Bootcamp - Pune",
     "description": "One-day beginner bootcamp covering Python basics through to building a simple web scraper. Zero prior programming experience assumed.",
     "startsAt": "2026-05-09T10:00:00+05:30",
     "endsAt": "2026-05-09T17:00:00+05:30",
@@ -1715,7 +1715,7 @@
       "students"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Friendly for first-timers — most people come alone too.",
+    "comfortNote": "Friendly for first-timers - most people come alone too.",
     "isFeatured": false
   },
   {
@@ -1745,7 +1745,7 @@
       "replay-available"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Structured prep beats random LeetCode — cheapest guided ML interview prep available.",
+    "whyAttend": "Structured prep beats random LeetCode - cheapest guided ML interview prep available.",
     "perks": [
       "Certificate",
       "Mock interview slot",
@@ -1763,7 +1763,7 @@
       "researchers"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Virtual, low-pressure — turn camera off if you want.",
+    "comfortNote": "Virtual, low-pressure - turn camera off if you want.",
     "isFeatured": false
   },
   {
@@ -1813,12 +1813,12 @@
       "hobbyists"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Mentors are specifically there for first-timers — zero judgment.",
+    "comfortNote": "Mentors are specifically there for first-timers - zero judgment.",
     "isFeatured": true
   },
   {
     "id": "jslovers-blr-may-2026",
-    "title": "JSLovers Bengaluru — TypeScript Deep Dive",
+    "title": "JSLovers Bengaluru - TypeScript Deep Dive",
     "description": "Two talks on advanced TypeScript: type-level programming and building DSLs. Plus a 30-minute community showcase for side projects.",
     "startsAt": "2026-05-29T18:30:00+05:30",
     "endsAt": "2026-05-29T21:30:00+05:30",
@@ -1842,7 +1842,7 @@
       "side-project-showcase"
     ],
     "difficulty": "advanced",
-    "whyAttend": "Advanced TS content is rare in person in India — this is the only regular venue for it.",
+    "whyAttend": "Advanced TS content is rare in person in India - this is the only regular venue for it.",
     "perks": [
       "Free food",
       "Side project showcase slot",
@@ -1858,7 +1858,7 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
@@ -1906,12 +1906,12 @@
       "founders"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Hallway track is the real event — most attendees come solo.",
+    "comfortNote": "Hallway track is the real event - most attendees come solo.",
     "isFeatured": false
   },
   {
     "id": "web-vitals-workshop-del-may-2026",
-    "title": "Web Vitals Workshop — Delhi (Hands-On)",
+    "title": "Web Vitals Workshop - Delhi (Hands-On)",
     "description": "3-hour hands-on workshop on Core Web Vitals optimization. Bring your own live site and we'll profile and fix it together.",
     "startsAt": "2026-05-16T14:00:00+05:30",
     "endsAt": "2026-05-16T17:00:00+05:30",
@@ -1952,12 +1952,12 @@
       "senior-devs"
     ],
     "isBeginnerFriendly": false,
-    "comfortNote": "Small, casual crowd — easy to start a conversation.",
+    "comfortNote": "Small, casual crowd - easy to start a conversation.",
     "isFeatured": false
   },
   {
     "id": "sih-2026-registrations",
-    "title": "Smart India Hackathon 2026 — Registrations Open",
+    "title": "Smart India Hackathon 2026 - Registrations Open",
     "description": "National-level student hackathon organized by the Ministry of Education. Problem statements from 50+ ministries. Team registration via your college SPOC.",
     "startsAt": "2026-08-29T09:00:00+05:30",
     "endsAt": "2026-08-31T18:00:00+05:30",
@@ -1999,12 +1999,12 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Team-matching on day zero — come solo, leave with teammates.",
+    "comfortNote": "Team-matching on day zero - come solo, leave with teammates.",
     "isFeatured": false
   },
   {
     "id": "cursor-blr-april-2026",
-    "title": "Cursor & AI Coding Tools Meetup — Bengaluru",
+    "title": "Cursor & AI Coding Tools Meetup - Bengaluru",
     "description": "First Bengaluru meetup for developers using Cursor, Claude Code, and other AI coding tools. Show-and-tell of workflows, plus a 20-min panel on what actually works.",
     "startsAt": "2026-04-26T17:00:00+05:30",
     "endsAt": "2026-04-26T20:00:00+05:30",
@@ -2029,7 +2029,7 @@
       "networking"
     ],
     "difficulty": "intermediate",
-    "whyAttend": "Everyone's using these tools — this is where you'll see prompts and workflows that actually 10x your work.",
+    "whyAttend": "Everyone's using these tools - this is where you'll see prompts and workflows that actually 10x your work.",
     "perks": [
       "Free food",
       "Workflow swap session",
@@ -2047,7 +2047,7 @@
       "designers"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Most people come solo — the format (workflow swap) forces low-stakes 1:1 conversations.",
+    "comfortNote": "Most people come solo - the format (workflow swap) forces low-stakes 1:1 conversations.",
     "isFeatured": true
   },
   {
@@ -2094,7 +2094,7 @@
       "early-devs"
     ],
     "isBeginnerFriendly": true,
-    "comfortNote": "Virtual and low-pressure — turn your camera off, lurk in chat if you want.",
+    "comfortNote": "Virtual and low-pressure - turn your camera off, lurk in chat if you want.",
     "isFeatured": true
   }
 ]

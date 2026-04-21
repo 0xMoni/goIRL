@@ -38,11 +38,11 @@ export default async function SubmitPage({
             </svg>
           </div>
           <h1 className="mt-6 text-2xl font-semibold tracking-tight text-black dark:text-white">
-            Thanks — we got it.
+            Thanks - we got it.
           </h1>
           <p className="mt-2 text-sm text-black/60 dark:text-white/60">
             We'll review your submission and add it to the feed within 24 hours. You'll
-            get an email when it's live (when we wire up emails — soon).
+            get an email when it's live (when we wire up emails - soon).
           </p>
           <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
             <Link
@@ -71,7 +71,7 @@ export default async function SubmitPage({
         </h1>
         <p className="mt-2 text-sm text-black/60 dark:text-white/60">
           Drop the details below. We review submissions manually, so give us enough to
-          decide — the better the info, the faster it goes live.
+          decide - the better the info, the faster it goes live.
         </p>
       </header>
 
@@ -135,7 +135,7 @@ export default async function SubmitPage({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="City">
             <select name="city" defaultValue="" className={inputClass}>
-              <option value="">— Virtual / online —</option>
+              <option value="">- Virtual / online -</option>
               {CITIES.filter((c) => c !== "Online").map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -175,7 +175,7 @@ export default async function SubmitPage({
 
         <fieldset>
           <legend className="mb-2 block text-xs font-medium text-black/70 dark:text-white/70">
-            Topics (pick 1–3)
+            Topics (pick 1-3)
           </legend>
           <div className="flex flex-wrap gap-2">
             {TOPICS.map((t) => (
@@ -198,7 +198,7 @@ export default async function SubmitPage({
 
         <Field label="Difficulty">
           <select name="difficulty" defaultValue="" className={inputClass}>
-            <option value="">— Any level —</option>
+            <option value="">- Any level -</option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>

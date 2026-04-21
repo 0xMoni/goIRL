@@ -13,22 +13,29 @@ export function EventCard({ event }: { event: TechEvent }) {
   const relative = getRelativeTimeLabel(event);
   const urgency = detectUrgency(event);
 
+  const baseCard =
+    "group relative flex h-full flex-col overflow-hidden rounded-2xl p-5 transition-all duration-200 hover:-translate-y-0.5";
+
+  const styleCard = event.isFeatured
+    ? "border border-purple-500/20 bg-[var(--surface-raised)] shadow-[0_1px_2px_rgba(168,85,247,0.08),0_8px_24px_rgba(236,72,153,0.10)] hover:border-purple-500/40 hover:shadow-[0_2px_4px_rgba(168,85,247,0.12),0_12px_32px_rgba(236,72,153,0.18)]"
+    : "border border-[var(--border)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)] hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-md)]";
+
   return (
-    <Link
-      href={`/events/${event.id}`}
-      className={`group relative flex flex-col rounded-2xl border p-5 transition-all hover:shadow-sm ${
-        event.isFeatured
-          ? "border-purple-500/25 bg-gradient-to-br from-purple-500/[0.04] to-pink-500/[0.04] hover:border-purple-500/40 dark:border-purple-500/30 dark:from-purple-500/[0.06] dark:to-pink-500/[0.04] dark:hover:border-purple-500/50"
-          : "border-black/5 bg-white hover:border-black/15 dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-white/20"
-      }`}
-    >
+    <Link href={`/events/${event.id}`} className={`${baseCard} ${styleCard}`}>
       {event.isFeatured && (
-        <span className="absolute -top-2 right-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent"
+          aria-hidden
+        />
+      )}
+
+      {event.isFeatured && (
+        <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm">
           Staff pick
         </span>
       )}
 
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-1.5 pr-24">
         {urgency && <UrgencyBadge urgency={urgency} />}
         <PriceBadge event={event} />
         {event.isBeginnerFriendly && !event.vibeTags?.includes("beginner-friendly") && (
@@ -36,26 +43,22 @@ export function EventCard({ event }: { event: TechEvent }) {
             Beginner-friendly
           </span>
         )}
-        <span className="ml-auto text-xs font-medium text-black/60 dark:text-white/60">
-          {location}
-        </span>
       </div>
 
-      <h3 className="mt-3 line-clamp-2 text-lg font-semibold leading-snug tracking-tight text-black dark:text-white">
+      <h3 className="mt-3 line-clamp-2 text-[17px] font-semibold leading-tight tracking-tight text-[var(--foreground)] transition-colors group-hover:text-purple-700 dark:group-hover:text-purple-300">
         {event.title}
       </h3>
 
       {event.whyAttend ? (
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-black/70 dark:text-white/70">
+        <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-[var(--muted)]">
           {event.whyAttend}
         </p>
       ) : (
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-black/60 dark:text-white/60">
+        <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-[var(--muted)]">
           {event.description}
         </p>
       )}
 
-      {/* Vibe chips */}
       {event.vibeTags && event.vibeTags.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1">
           {event.vibeTags.slice(0, 3).map((v) => (
@@ -64,39 +67,58 @@ export function EventCard({ event }: { event: TechEvent }) {
         </div>
       )}
 
-      {/* Topics */}
       <div className="mt-2 flex flex-wrap items-center gap-1">
         {event.topics.slice(0, 2).map((t) => (
           <TopicChip key={t} slug={t} />
         ))}
       </div>
 
-      {/* Comfort signal */}
       <ComfortSignal note={event.comfortNote} compact />
 
-      <div className="mt-4 flex items-center justify-between border-t border-black/5 pt-3 text-xs dark:border-white/10">
-        <div className="flex flex-col gap-0.5">
-          <span className="font-medium text-black/70 dark:text-white/70">
+      <div className="mt-auto flex items-end justify-between gap-3 border-t border-[var(--border)] pt-3 text-[11px]">
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <span className="truncate font-medium text-[var(--foreground)]/85">
             {formatEventDateRange(event)}
           </span>
-          <div className="flex items-center gap-2">
-            <span className="text-black/50 dark:text-white/50">{relative}</span>
+          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+            <span className="inline-flex items-center gap-1">
+              <svg
+                className="h-3 w-3"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              {relative}
+            </span>
             {event.deadline && (
               <>
-                <span className="text-black/30 dark:text-white/30">·</span>
+                <span className="opacity-40">·</span>
                 <DeadlineCountdown deadline={event.deadline} />
               </>
             )}
           </div>
         </div>
-        {event.interestedCount !== undefined && event.interestedCount > 30 && (
-          <span className="flex items-center gap-1 whitespace-nowrap rounded-full bg-black/5 px-2 py-1 text-[11px] font-medium text-black/70 dark:bg-white/5 dark:text-white/70">
-            <span className="font-semibold text-black dark:text-white">
-              {event.interestedCount}
-            </span>
-            going
+        <div className="flex flex-col items-end gap-1">
+          <span className="whitespace-nowrap text-[11px] font-medium text-[var(--muted)]">
+            {location}
           </span>
-        )}
+          {event.interestedCount !== undefined && event.interestedCount > 30 && (
+            <span className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-medium text-[var(--foreground)]/75 dark:bg-white/10">
+              <span className="h-1 w-1 rounded-full bg-emerald-500" aria-hidden />
+              <span className="font-semibold text-[var(--foreground)]">
+                {event.interestedCount}
+              </span>
+              going
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   );

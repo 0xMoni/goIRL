@@ -7,21 +7,36 @@ export async function SiteHeader() {
   const session = await getSession();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-black/5 bg-[var(--background)]/80 backdrop-blur-md dark:border-white/10">
+    <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background)]/75 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-5">
-        <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-gradient-to-br from-purple-500 to-pink-500" aria-hidden />
+        <Link
+          href="/"
+          className="group flex items-center gap-2 text-[15px] font-semibold tracking-tight"
+        >
+          <span
+            className="relative inline-flex h-5 w-5 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 shadow-sm transition-transform group-hover:scale-105"
+            aria-hidden
+          >
+            <span className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/30 to-transparent" />
+          </span>
           <span>
-            go<span className="text-purple-600 dark:text-purple-400">IRL</span>
+            go<span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-pink-400">IRL</span>
           </span>
         </Link>
 
         <nav className="flex items-center gap-1 text-sm">
           <Link
             href="/dashboard"
-            className="rounded-full px-3 py-1.5 text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
+            className="rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)]"
           >
             Browse
+          </Link>
+
+          <Link
+            href="/submit"
+            className="hidden rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)] sm:inline-flex"
+          >
+            Submit
           </Link>
 
           <ThemeToggle />
@@ -30,19 +45,19 @@ export async function SiteHeader() {
             <>
               <Link
                 href="/profile"
-                className="ml-1 flex items-center gap-2 rounded-full border border-black/10 py-1 pl-1 pr-3 transition-colors hover:border-black/25 dark:border-white/15 dark:hover:border-white/40"
+                className="ml-1 flex items-center gap-2 rounded-full border border-[var(--border-strong)] py-1 pl-1 pr-3 transition-colors hover:border-purple-500/40"
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-[10px] font-semibold text-white">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-[10px] font-semibold text-white shadow-sm">
                   {getInitials(session.name)}
                 </span>
-                <span className="hidden text-xs font-medium text-black/80 sm:inline dark:text-white/80">
+                <span className="hidden text-xs font-medium text-[var(--foreground)]/85 sm:inline">
                   {session.name.split(" ")[0]}
                 </span>
               </Link>
               <form action={signOutAction}>
                 <button
                   type="submit"
-                  className="rounded-full px-3 py-1.5 text-xs text-black/50 transition-colors hover:text-black dark:text-white/50 dark:hover:text-white"
+                  className="rounded-full px-3 py-1.5 text-xs text-[var(--muted)] transition-colors hover:text-[var(--foreground)]"
                 >
                   Sign out
                 </button>
@@ -52,13 +67,13 @@ export async function SiteHeader() {
             <>
               <Link
                 href="/login"
-                className="rounded-full px-3 py-1.5 text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)]"
               >
                 Log in
               </Link>
               <Link
                 href="/login?mode=signup"
-                className="rounded-full bg-black px-3 py-1.5 text-white transition-colors hover:bg-black/85 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                className="rounded-full bg-[var(--foreground)] px-3.5 py-1.5 text-[var(--background)] shadow-sm transition-all hover:shadow-md hover:-translate-y-px"
               >
                 Sign up
               </Link>

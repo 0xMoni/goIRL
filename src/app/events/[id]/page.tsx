@@ -120,7 +120,7 @@ export default async function EventPage({ params }: { params: Params }) {
           </section>
         )}
 
-        {/* What it feels like — vibe */}
+        {/* What it feels like - vibe */}
         {event.vibeTags && event.vibeTags.length > 0 && (
           <section className="mt-6">
             <p className="text-xs font-medium uppercase tracking-wider text-black/50 dark:text-white/50">

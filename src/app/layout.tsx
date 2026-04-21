@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "goIRL · Tech events worth showing up to",
   description:
-    "Hackathons, meetups and workshops across India and online — where you'll learn something AND meet your people.",
+    "Hackathons, meetups and workshops across India and online - where you'll learn something AND meet your people.",
   openGraph: {
     title: "goIRL",
     description:
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 // Prevents flash-of-wrong-theme on initial paint when the user hasn't yet
-// set an explicit preference — relies on matchMedia synchronously at head.
+// set an explicit preference - relies on matchMedia synchronously at head.
 const NO_FLASH_SCRIPT = `(function(){try{var t=document.cookie.match(/ite_theme=(dark|light)/);if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 export default async function RootLayout({

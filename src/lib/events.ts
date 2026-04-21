@@ -80,9 +80,9 @@ export function formatEventDateRange(event: TechEvent, locale = "en-IN"): string
   });
 
   if (sameDay) {
-    return `${dateFmt.format(start)} · ${timeFmt.format(start)}–${timeFmt.format(end)}`;
+    return `${dateFmt.format(start)} · ${timeFmt.format(start)}-${timeFmt.format(end)}`;
   }
-  return `${dateFmt.format(start)} – ${dateFmt.format(end)}`;
+  return `${dateFmt.format(start)} - ${dateFmt.format(end)}`;
 }
 
 export function getRelativeTimeLabel(event: TechEvent): string {

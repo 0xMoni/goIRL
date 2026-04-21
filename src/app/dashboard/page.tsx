@@ -44,7 +44,7 @@ export default async function Dashboard({
 
   const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode;
 
-  // Sections that ignore filters — always pull from full upcoming pool
+  // Sections that ignore filters - always pull from full upcoming pool
   const fullUpcoming = getUpcomingEvents({});
   const happeningToday = filterByUrgency(fullUpcoming, "happening-today").slice(0, 6);
   const closingSoon = filterByUrgency(fullUpcoming, "closing-soon").slice(0, 6);
@@ -77,7 +77,7 @@ export default async function Dashboard({
         </h1>
         <p className="text-sm text-black/60 dark:text-white/60">
           {tab === "top-picks" && hasAnyPrefs
-            ? "Ranked for you — based on your topics, cities, and preferences."
+            ? "Ranked for you - based on your topics, cities, and preferences."
             : tab === "my-topics" && hasFollows
               ? `Matching the ${session!.followedTopics.length} topics you follow.`
               : "Hackathons, meetups, workshops across India and online."}
@@ -90,7 +90,7 @@ export default async function Dashboard({
           {happeningToday.length > 0 && (
             <UrgencyStrip
               title="Happening today"
-              subtitle="Show up — these are live now or starting tonight"
+              subtitle="Show up - these are live now or starting tonight"
               events={happeningToday}
               accent="red"
             />
@@ -265,7 +265,7 @@ function EmptyState({
           <Link href="/profile" className="font-medium underline">
             Head to your profile
           </Link>{" "}
-          and pick a few — takes 10 seconds.
+          and pick a few - takes 10 seconds.
         </p>
       </div>
     );
