@@ -33,6 +33,13 @@ export async function SiteHeader() {
           </Link>
 
           <Link
+            href="/map"
+            className="hidden rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)] sm:inline-flex"
+          >
+            Map
+          </Link>
+
+          <Link
             href="/submit"
             className="hidden rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)] sm:inline-flex"
           >

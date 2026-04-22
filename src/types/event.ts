@@ -67,4 +67,9 @@ export interface TechEvent {
   isBeginnerFriendly?: boolean;
   comfortNote?: string;
   isFeatured?: boolean;
+
+  // Geography (for map view)
+  lat?: number;
+  lng?: number;
+  venue?: string;
 }
