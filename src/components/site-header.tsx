@@ -46,6 +46,15 @@ export async function SiteHeader() {
             Submit
           </Link>
 
+          {session?.isAdmin && (
+            <Link
+              href="/admin"
+              className="hidden rounded-full border border-purple-500/30 px-3 py-1.5 text-purple-600 transition-colors hover:bg-purple-500/10 dark:text-purple-400 sm:inline-flex"
+            >
+              Admin
+            </Link>
+          )}
+
           <ThemeToggle />
 
           {session ? (

@@ -9,7 +9,20 @@ export type Session = {
   rsvps: string[];
   preferredCities: string[];
   createdAt: string;
+  isAdmin: boolean;
 };
+
+function getAdminEmails(): string[] {
+  return (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function isEmailAdmin(email: string | null | undefined): boolean {
+  if (!email) return false;
+  return getAdminEmails().includes(email.toLowerCase());
+}
 
 export async function getSession(): Promise<Session | null> {
   const supabase = await createSupabaseServerClient();
@@ -31,14 +44,16 @@ export async function getSession(): Promise<Session | null> {
       ? profile.name
       : (user.email ?? "").split("@")[0].replace(/[._-]/g, " ");
 
+  const email = profile?.email ?? user.email ?? "";
   return {
     userId: user.id,
-    email: profile?.email ?? user.email ?? "",
+    email,
     name,
     followedTopics: (topicsRes.data ?? []).map((r) => r.topic),
     rsvps: (rsvpsRes.data ?? []).map((r) => r.event_id),
     preferredCities: (citiesRes.data ?? []).map((r) => r.city),
     createdAt: profile?.created_at ?? user.created_at ?? new Date().toISOString(),
+    isAdmin: isEmailAdmin(email),
   };
 }
 
