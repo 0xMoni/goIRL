@@ -18,7 +18,8 @@ export default async function ProfilePage() {
   const session = await getSession();
   if (!session) redirect("/login?next=/profile");
 
-  const rsvpEvents = getAllEvents()
+  const allEvents = await getAllEvents();
+  const rsvpEvents = allEvents
     .filter((e) => session.rsvps.includes(e.id))
     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
 

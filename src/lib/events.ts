@@ -1,100 +1,115 @@
-import rawEvents from "@/data/events.json";
+import "server-only";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { TechEvent } from "@/types/event";
+import { filterEvents, sortByStart, type EventFilter } from "@/lib/event-utils";
 
-export type EventFilter = {
-  topic?: string;
-  city?: string;
-  mode?: "in-person" | "virtual" | "all";
-  from?: Date;
-  to?: Date;
-  query?: string;
+export { filterEvents, sortByStart, formatEventDateRange, getRelativeTimeLabel } from "@/lib/event-utils";
+export type { EventFilter } from "@/lib/event-utils";
+
+type EventRow = {
+  id: string;
+  title: string;
+  description: string;
+  starts_at: string;
+  ends_at: string;
+  timezone: string;
+  city: string | null;
+  country: string;
+  is_virtual: boolean;
+  register_url: string;
+  organizer: string;
+  source: string;
+  source_id: string;
+  topics: string[];
+  cover_image: string | null;
+  price: number | null;
+  is_free: boolean;
+  deadline: string | null;
+  tags: string[] | null;
+  difficulty: string | null;
+  why_attend: string | null;
+  perks: string[] | null;
+  interested_count: number | null;
+  vibe_tags: string[] | null;
+  audience: string[] | null;
+  is_beginner_friendly: boolean | null;
+  comfort_note: string | null;
+  is_featured: boolean | null;
+  lat: number | null;
+  lng: number | null;
+  venue: string | null;
 };
 
-export function getAllEvents(): TechEvent[] {
-  return rawEvents as TechEvent[];
+function rowToEvent(row: EventRow): TechEvent {
+  return {
+    id: row.id,
+    title: row.title,
+    description: row.description,
+    startsAt: row.starts_at,
+    endsAt: row.ends_at,
+    timezone: row.timezone,
+    city: row.city,
+    country: row.country,
+    isVirtual: row.is_virtual,
+    registerUrl: row.register_url,
+    organizer: row.organizer,
+    source: row.source as TechEvent["source"],
+    sourceId: row.source_id,
+    topics: row.topics ?? [],
+    coverImage: row.cover_image ?? undefined,
+    price: row.price,
+    isFree: row.is_free,
+    deadline: row.deadline ?? undefined,
+    tags: row.tags ?? undefined,
+    difficulty: (row.difficulty as TechEvent["difficulty"]) ?? undefined,
+    whyAttend: row.why_attend ?? undefined,
+    perks: row.perks ?? undefined,
+    interestedCount: row.interested_count ?? undefined,
+    vibeTags: (row.vibe_tags as TechEvent["vibeTags"]) ?? undefined,
+    audience: (row.audience as TechEvent["audience"]) ?? undefined,
+    isBeginnerFriendly: row.is_beginner_friendly ?? undefined,
+    comfortNote: row.comfort_note ?? undefined,
+    isFeatured: row.is_featured ?? undefined,
+    lat: row.lat ?? undefined,
+    lng: row.lng ?? undefined,
+    venue: row.venue ?? undefined,
+  };
 }
 
-export function getEventById(id: string): TechEvent | undefined {
-  return getAllEvents().find((e) => e.id === id);
-}
+export async function getAllEvents(): Promise<TechEvent[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("events")
+    .select("*")
+    .eq("status", "published")
+    .order("starts_at", { ascending: true });
 
-export function filterEvents(events: TechEvent[], filter: EventFilter): TechEvent[] {
-  return events.filter((e) => {
-    if (filter.topic && !e.topics.includes(filter.topic)) return false;
-    if (filter.city && filter.city !== "all") {
-      if (filter.city === "Online") {
-        if (!e.isVirtual) return false;
-      } else if (e.city !== filter.city) {
-        return false;
-      }
-    }
-    if (filter.mode === "in-person" && e.isVirtual) return false;
-    if (filter.mode === "virtual" && !e.isVirtual) return false;
-    if (filter.from && new Date(e.startsAt) < filter.from) return false;
-    if (filter.to && new Date(e.startsAt) > filter.to) return false;
-    if (filter.query) {
-      const q = filter.query.toLowerCase();
-      const hit =
-        e.title.toLowerCase().includes(q) ||
-        e.description.toLowerCase().includes(q) ||
-        e.organizer.toLowerCase().includes(q);
-      if (!hit) return false;
-    }
-    return true;
-  });
-}
-
-export function sortByStart(events: TechEvent[], direction: "asc" | "desc" = "asc"): TechEvent[] {
-  return [...events].sort((a, b) => {
-    const diff = new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime();
-    return direction === "asc" ? diff : -diff;
-  });
-}
-
-export function getUpcomingEvents(filter: EventFilter = {}): TechEvent[] {
-  const now = new Date();
-  const futureOrOngoing = getAllEvents().filter((e) => new Date(e.endsAt) >= now);
-  return sortByStart(filterEvents(futureOrOngoing, filter));
-}
-
-export function formatEventDateRange(event: TechEvent, locale = "en-IN"): string {
-  const start = new Date(event.startsAt);
-  const end = new Date(event.endsAt);
-  const sameDay =
-    start.getFullYear() === end.getFullYear() &&
-    start.getMonth() === end.getMonth() &&
-    start.getDate() === end.getDate();
-
-  const dateFmt = new Intl.DateTimeFormat(locale, {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: event.timezone,
-  });
-  const timeFmt = new Intl.DateTimeFormat(locale, {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-    timeZone: event.timezone,
-  });
-
-  if (sameDay) {
-    return `${dateFmt.format(start)} · ${timeFmt.format(start)}-${timeFmt.format(end)}`;
+  if (error) {
+    console.error("getAllEvents:", error);
+    return [];
   }
-  return `${dateFmt.format(start)} - ${dateFmt.format(end)}`;
+  return (data ?? []).map((r) => rowToEvent(r as EventRow));
 }
 
-export function getRelativeTimeLabel(event: TechEvent): string {
+export async function getEventById(id: string): Promise<TechEvent | undefined> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("events")
+    .select("*")
+    .eq("id", id)
+    .eq("status", "published")
+    .maybeSingle();
+
+  if (error) {
+    console.error("getEventById:", error);
+    return undefined;
+  }
+  return data ? rowToEvent(data as EventRow) : undefined;
+}
+
+export async function getUpcomingEvents(filter: EventFilter = {}): Promise<TechEvent[]> {
   const now = new Date();
-  const start = new Date(event.startsAt);
-  const end = new Date(event.endsAt);
-  if (now >= start && now <= end) return "Happening now";
-  const diffMs = start.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays <= 0) return "Starting soon";
-  if (diffDays === 1) return "Tomorrow";
-  if (diffDays < 7) return `In ${diffDays} days`;
-  if (diffDays < 30) return `In ${Math.round(diffDays / 7)} weeks`;
-  return `In ${Math.round(diffDays / 30)} months`;
+  const all = await getAllEvents();
+  const futureOrOngoing = all.filter((e) => new Date(e.endsAt) >= now);
+  return sortByStart(filterEvents(futureOrOngoing, filter));
 }

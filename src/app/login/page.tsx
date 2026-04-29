@@ -7,6 +7,8 @@ type SearchParams = {
   mode?: "signup" | "login";
   error?: string;
   next?: string;
+  sent?: string;
+  email?: string;
 };
 
 export const metadata = {
@@ -24,6 +26,35 @@ export default async function LoginPage({
 
   const isSignup = sp.mode === "signup";
 
+  if (sp.sent) {
+    return (
+      <main className="mx-auto flex min-h-[calc(100vh-3.5rem)] w-full max-w-md items-center px-5 py-10">
+        <div className="w-full text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7" aria-hidden>
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </div>
+          <h1 className="mt-6 text-2xl font-semibold tracking-tight text-black dark:text-white">
+            Check your email
+          </h1>
+          <p className="mt-2 text-sm text-black/60 dark:text-white/60">
+            We sent a magic link to{" "}
+            <span className="font-medium text-black dark:text-white">{sp.email}</span>.
+            Click it to sign in — no password needed.
+          </p>
+          <Link
+            href="/login"
+            className="mt-6 inline-block text-xs font-medium text-black/60 underline-offset-4 hover:underline dark:text-white/60"
+          >
+            ← Use a different email
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto flex min-h-[calc(100vh-3.5rem)] w-full max-w-md items-center px-5 py-10">
       <div className="w-full">
@@ -33,8 +64,8 @@ export default async function LoginPage({
           </h1>
           <p className="mt-2 text-sm text-black/60 dark:text-white/60">
             {isSignup
-              ? "Takes 20 seconds. No phone, no credit card."
-              : "Sign in to get events in your calendar and inbox."}
+              ? "Takes 20 seconds. We'll email you a magic link to sign in."
+              : "Enter your email — we'll send you a magic link."}
           </p>
         </div>
 
@@ -88,7 +119,7 @@ export default async function LoginPage({
             type="submit"
             className="w-full rounded-xl bg-black px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-black/85 dark:bg-white dark:text-black dark:hover:bg-white/90"
           >
-            {isSignup ? "Create account" : "Sign in"}
+            {isSignup ? "Send magic link" : "Send magic link"}
           </button>
         </form>
 
@@ -117,8 +148,8 @@ export default async function LoginPage({
         </p>
 
         <p className="mt-8 rounded-xl border border-dashed border-black/10 p-3 text-center text-[11px] leading-relaxed text-black/40 dark:border-white/15 dark:text-white/40">
-          Demo auth: any valid email signs you in. Real Google OAuth + calendar
-          access coming in the next build phase.
+          Passwordless sign-in via magic link. Google OAuth + calendar access
+          coming with Phase 5.
         </p>
       </div>
     </main>

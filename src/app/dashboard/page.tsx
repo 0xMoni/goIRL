@@ -27,7 +27,7 @@ export default async function Dashboard({
   const sp = await searchParams;
   const session = await getSession();
 
-  const allUpcoming = getUpcomingEvents({
+  const allUpcoming = await getUpcomingEvents({
     topic: sp.topic,
     city: sp.city,
     mode: sp.mode,
@@ -45,7 +45,7 @@ export default async function Dashboard({
   const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode;
 
   // Sections that ignore filters - always pull from full upcoming pool
-  const fullUpcoming = getUpcomingEvents({});
+  const fullUpcoming = await getUpcomingEvents({});
   const happeningToday = filterByUrgency(fullUpcoming, "happening-today").slice(0, 6);
   const closingSoon = filterByUrgency(fullUpcoming, "closing-soon").slice(0, 6);
   const thisWeekend = filterByUrgency(fullUpcoming, "this-weekend").slice(0, 6);
@@ -205,7 +205,7 @@ function UrgencyStrip({
 }: {
   title: string;
   subtitle: string;
-  events: ReturnType<typeof getUpcomingEvents>;
+  events: Awaited<ReturnType<typeof getUpcomingEvents>>;
   accent: "amber" | "blue" | "red";
 }) {
   const accentClass =

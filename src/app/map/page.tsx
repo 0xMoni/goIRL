@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function MapPage() {
-  const events = getUpcomingEvents({});
+  const events = await getUpcomingEvents({});
   const inPerson = events.filter((e) => !e.isVirtual && e.city);
   const byCity = Object.keys(CITY_COORDS).map((city) => ({
     city,

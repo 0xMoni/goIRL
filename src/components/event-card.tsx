@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { TechEvent } from "@/types/event";
-import { formatEventDateRange, getRelativeTimeLabel } from "@/lib/events";
+import { formatEventDateRange, getRelativeTimeLabel } from "@/lib/event-utils";
 import { TopicChip } from "@/components/topic-chip";
 import { PriceBadge } from "@/components/price-badge";
 import { UrgencyBadge, DeadlineCountdown } from "@/components/urgency-badge";

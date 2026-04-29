@@ -5,8 +5,9 @@ import { TOPICS } from "@/data/topics";
 
 export default async function LandingPage() {
   const session = await getSession();
-  const eventCount = getAllEvents().length;
-  const featuredCount = getAllEvents().filter((e) => e.isFeatured).length;
+  const allEvents = await getAllEvents();
+  const eventCount = allEvents.length;
+  const featuredCount = allEvents.filter((e) => e.isFeatured).length;
 
   const primaryCta = session
     ? { href: "/dashboard", label: "Go to your feed" }

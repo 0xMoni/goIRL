@@ -1,49 +1,45 @@
 import "server-only";
-import { cookies } from "next/headers";
-
-export const SESSION_COOKIE = "ite_session";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export type Session = {
+  userId: string;
   email: string;
   name: string;
   followedTopics: string[];
   rsvps: string[];
+  preferredCities: string[];
   createdAt: string;
-  preferredCities?: string[];
 };
 
 export async function getSession(): Promise<Session | null> {
-  const jar = await cookies();
-  const raw = jar.get(SESSION_COOKIE)?.value;
-  if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw) as Session;
-    if (!parsed.email || !parsed.name) return null;
-    return {
-      ...parsed,
-      followedTopics: parsed.followedTopics ?? [],
-      rsvps: parsed.rsvps ?? [],
-      createdAt: parsed.createdAt ?? new Date().toISOString(),
-      preferredCities: parsed.preferredCities ?? [],
-    };
-  } catch {
-    return null;
-  }
-}
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
 
-export async function writeSession(session: Session): Promise<void> {
-  const jar = await cookies();
-  jar.set(SESSION_COOKIE, JSON.stringify(session), {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-  });
-}
+  const [profileRes, topicsRes, citiesRes, rsvpsRes] = await Promise.all([
+    supabase.from("profiles").select("name, email, created_at").eq("id", user.id).maybeSingle(),
+    supabase.from("followed_topics").select("topic").eq("user_id", user.id),
+    supabase.from("preferred_cities").select("city").eq("user_id", user.id),
+    supabase.from("rsvps").select("event_id").eq("user_id", user.id),
+  ]);
 
-export async function clearSession(): Promise<void> {
-  const jar = await cookies();
-  jar.delete(SESSION_COOKIE);
+  const profile = profileRes.data;
+  const name =
+    profile?.name && profile.name.length > 0
+      ? profile.name
+      : (user.email ?? "").split("@")[0].replace(/[._-]/g, " ");
+
+  return {
+    userId: user.id,
+    email: profile?.email ?? user.email ?? "",
+    name,
+    followedTopics: (topicsRes.data ?? []).map((r) => r.topic),
+    rsvps: (rsvpsRes.data ?? []).map((r) => r.event_id),
+    preferredCities: (citiesRes.data ?? []).map((r) => r.city),
+    createdAt: profile?.created_at ?? user.created_at ?? new Date().toISOString(),
+  };
 }
 
 export function getInitials(name: string): string {

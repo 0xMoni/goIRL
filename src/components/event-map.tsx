@@ -7,7 +7,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import type { TechEvent } from "@/types/event";
 import { coordsFor } from "@/data/city-coords";
-import { formatEventDateRange } from "@/lib/events";
+import { formatEventDateRange } from "@/lib/event-utils";
 import { formatPrice } from "@/lib/ranking";
 
 function makeIcon(featured: boolean) {

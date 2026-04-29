@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  getAllEvents,
   getEventById,
   formatEventDateRange,
   getRelativeTimeLabel,
@@ -18,13 +17,9 @@ import { toggleRsvpAction } from "@/lib/auth-actions";
 
 type Params = Promise<{ id: string }>;
 
-export async function generateStaticParams() {
-  return getAllEvents().map((e) => ({ id: e.id }));
-}
-
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
-  const event = getEventById(id);
+  const event = await getEventById(id);
   if (!event) return { title: "Event not found" };
   return {
     title: `${event.title} · goIRL`,
@@ -34,7 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function EventPage({ params }: { params: Params }) {
   const { id } = await params;
-  const event = getEventById(id);
+  const event = await getEventById(id);
   if (!event) notFound();
 
   const session = await getSession();
