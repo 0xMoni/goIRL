@@ -81,7 +81,7 @@ export function EventCard({ event }: { event: TechEvent }) {
             {formatEventDateRange(event)}
           </span>
           <div className="flex items-center gap-1.5 text-[var(--muted)]">
-            <span className="inline-flex items-center gap-1">
+            <span suppressHydrationWarning className="inline-flex items-center gap-1">
               <svg
                 className="h-3 w-3"
                 viewBox="0 0 24 24"

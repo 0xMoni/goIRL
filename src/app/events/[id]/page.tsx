@@ -252,38 +252,46 @@ export default async function EventPage({ params }: { params: Params }) {
           </form>
         </div>
 
-        {/* Notification toggles (coming soon) */}
+        {/* Share + add to calendar */}
         <section className="mt-6 rounded-2xl border border-dashed border-black/10 p-4 dark:border-white/15">
           <p className="text-xs font-medium uppercase tracking-wider text-black/50 dark:text-white/50">
-            Notify me (coming soon)
+            Don&apos;t forget
           </p>
           <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-3">
-            <button
-              type="button"
-              disabled
-              className="flex flex-1 items-center justify-between rounded-xl border border-black/5 bg-black/[0.02] px-4 py-2.5 text-sm text-black/50 dark:border-white/10 dark:bg-white/[0.02] dark:text-white/40"
+            <a
+              href={`/events/${event.id}/ics`}
+              className="flex flex-1 items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black/85 transition-colors hover:border-black/30 hover:bg-black/[0.03] dark:border-white/15 dark:bg-white/[0.02] dark:text-white/85 dark:hover:border-white/40 dark:hover:bg-white/[0.05]"
             >
-              <span>Add to Google Calendar</span>
-              <span className="rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-medium dark:bg-white/10">
-                Soon
-              </span>
-            </button>
-            <button
-              type="button"
-              disabled
-              className="flex flex-1 items-center justify-between rounded-xl border border-black/5 bg-black/[0.02] px-4 py-2.5 text-sm text-black/50 dark:border-white/10 dark:bg-white/[0.02] dark:text-white/40"
+              <span>Add to calendar</span>
+              <svg className="h-4 w-4 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </a>
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(
+                `${event.title} — ${formatEventDateRange(event)}\n${event.registerUrl}`,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black/85 transition-colors hover:border-black/30 hover:bg-black/[0.03] dark:border-white/15 dark:bg-white/[0.02] dark:text-white/85 dark:hover:border-white/40 dark:hover:bg-white/[0.05]"
             >
-              <span>Notify via WhatsApp</span>
-              <span className="rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-medium dark:bg-white/10">
-                Soon
-              </span>
-            </button>
+              <span>Share on WhatsApp</span>
+              <svg className="h-4 w-4 opacity-60" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .17 5.33.17 11.89c0 2.1.55 4.13 1.6 5.93L0 24l6.3-1.66a11.84 11.84 0 0 0 5.76 1.47h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.17-1.24-6.15-3.43-8.44zM12.07 21.75h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.22-3.74.98 1-3.65-.24-.37a9.83 9.83 0 0 1-1.51-5.23c0-5.44 4.43-9.87 9.88-9.87 2.64 0 5.11 1.03 6.97 2.89a9.8 9.8 0 0 1 2.89 6.98c0 5.45-4.43 9.86-9.86 9.86zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.65.07c-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5s.05-.37-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47 1.07 2.87 1.22 3.07c.15.2 2.11 3.22 5.12 4.51.72.31 1.27.49 1.71.63.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.18-1.41-.07-.13-.27-.2-.57-.35z" />
+              </svg>
+            </a>
           </div>
+          <p className="mt-2 text-[11px] text-black/40 dark:text-white/40">
+            Calendar file works with Google, Apple, Outlook. WhatsApp opens a share sheet.
+          </p>
         </section>
 
         {!session && (
           <p className="mt-4 text-xs text-black/50 dark:text-white/50">
-            Sign in to save events and unlock notifications when calendar + WhatsApp launch.
+            Sign in to save events to your profile.
           </p>
         )}
       </article>

@@ -13,6 +13,7 @@ export function UrgencyBadge({ urgency }: { urgency: Urgency }) {
 
   return (
     <span
+      suppressHydrationWarning
       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${styles[urgency]}`}
     >
       <span className="relative flex h-1.5 w-1.5">
@@ -45,6 +46,8 @@ export function DeadlineCountdown({ deadline }: { deadline?: string }) {
   else return null;
 
   return (
-    <span className="text-[11px] font-medium text-amber-700 dark:text-amber-400">{label}</span>
+    <span suppressHydrationWarning className="text-[11px] font-medium text-amber-700 dark:text-amber-400">
+      {label}
+    </span>
   );
 }
