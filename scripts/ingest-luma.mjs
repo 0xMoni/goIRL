@@ -164,7 +164,7 @@ function mapRow(raw, fallbackCity) {
     city,
     country: geo.country_code ?? "IN",
     is_virtual: isVirtual,
-    register_url: `https://lu.ma/${e.url}`,
+    register_url: `https://luma.com/${e.url}`,
     organizer,
     source: "luma",
     source_id: e.api_id,
