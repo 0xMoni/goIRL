@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
   getEventById,
+  getAllEvents,
   formatEventDateRange,
   getRelativeTimeLabel,
 } from "@/lib/events";
+import { EventCard } from "@/components/event-card";
 import { VibeChip } from "@/components/vibe-chip";
 import { AudienceLine } from "@/components/comfort-signal";
 import { detectUrgency, urgencyLabel, formatPrice } from "@/lib/ranking";
@@ -32,6 +34,12 @@ export default async function EventPage({ params }: { params: Params }) {
 
   const session = await getSession();
   const isGoing = session?.rsvps.includes(event.id) ?? false;
+
+  const allEvents = await getAllEvents();
+  const similarEvents = allEvents
+    .filter((e) => e.id !== event.id && (e.city === event.city || e.topics.some((t) => event.topics.includes(t))))
+    .filter((e) => new Date(e.endsAt) >= new Date())
+    .slice(0, 3);
   const location = event.isVirtual ? "Online" : (event.city ?? "TBA");
   const relative = getRelativeTimeLabel(event);
   const urgency = detectUrgency(event);
@@ -344,20 +352,35 @@ export default async function EventPage({ params }: { params: Params }) {
               </div>
             </div>
 
-            {/* Share */}
-            <a
-              href={`https://wa.me/?text=${encodeURIComponent(
-                `${event.title} — ${formatEventDateRange(event)}\n${event.registerUrl}`,
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-[var(--muted)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--foreground)]/[0.03] hover:text-[var(--foreground)]"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .17 5.33.17 11.89c0 2.1.55 4.13 1.6 5.93L0 24l6.3-1.66a11.84 11.84 0 0 0 5.76 1.47h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.17-1.24-6.15-3.43-8.44zM12.07 21.75h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.22-3.74.98 1-3.65-.24-.37a9.83 9.83 0 0 1-1.51-5.23c0-5.44 4.43-9.87 9.88-9.87 2.64 0 5.11 1.03 6.97 2.89a9.8 9.8 0 0 1 2.89 6.98c0 5.45-4.43 9.86-9.86 9.86zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.65.07c-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5s.05-.37-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47 1.07 2.87 1.22 3.07c.15.2 2.11 3.22 5.12 4.51.72.31 1.27.49 1.71.63.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.18-1.41-.07-.13-.27-.2-.57-.35z" />
-              </svg>
-              Share on WhatsApp
-            </a>
+            {/* Share buttons */}
+            <div className="flex gap-2">
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(
+                  `${event.title} — ${formatEventDateRange(event)}\n${event.registerUrl}`,
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-[12px] font-medium text-[var(--muted)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--foreground)]/[0.03] hover:text-[var(--foreground)]"
+              >
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .17 5.33.17 11.89c0 2.1.55 4.13 1.6 5.93L0 24l6.3-1.66a11.84 11.84 0 0 0 5.76 1.47h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.17-1.24-6.15-3.43-8.44zM12.07 21.75h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.22-3.74.98 1-3.65-.24-.37a9.83 9.83 0 0 1-1.51-5.23c0-5.44 4.43-9.87 9.88-9.87 2.64 0 5.11 1.03 6.97 2.89a9.8 9.8 0 0 1 2.89 6.98c0 5.45-4.43 9.86-9.86 9.86zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.65.07c-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5s.05-.37-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47 1.07 2.87 1.22 3.07c.15.2 2.11 3.22 5.12 4.51.72.31 1.27.49 1.71.63.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.18-1.41-.07-.13-.27-.2-.57-.35z" />
+                </svg>
+                WhatsApp
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  `${event.title}\n${event.registerUrl}`,
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-[12px] font-medium text-[var(--muted)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--foreground)]/[0.03] hover:text-[var(--foreground)]"
+              >
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Twitter
+              </a>
+            </div>
 
             {!session && (
               <p className="text-center text-xs text-[var(--muted)]">
@@ -366,6 +389,20 @@ export default async function EventPage({ params }: { params: Params }) {
             )}
           </div>
         </div>
+
+        {/* Similar events */}
+        {similarEvents.length > 0 && (
+          <div className="mt-12 border-t border-[var(--border)] pt-8">
+            <h2 className="mb-5 text-xl font-bold tracking-tight text-[var(--foreground)]">
+              Similar events
+            </h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {similarEvents.map((e) => (
+                <EventCard key={e.id} event={e} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

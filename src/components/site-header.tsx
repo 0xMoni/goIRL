@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getSession, getInitials } from "@/lib/auth";
 import { signOutAction } from "@/lib/auth-actions";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 
 export async function SiteHeader() {
   const session = await getSession();
@@ -27,7 +28,7 @@ export async function SiteHeader() {
         <nav className="flex items-center gap-1 text-sm">
           <Link
             href="/dashboard"
-            className="rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)]"
+            className="hidden rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)] sm:inline-flex"
           >
             Browse
           </Link>
@@ -55,10 +56,22 @@ export async function SiteHeader() {
             </Link>
           )}
 
+          <MobileNav
+            session={
+              session
+                ? {
+                    name: session.name,
+                    initials: getInitials(session.name),
+                    isAdmin: session.isAdmin,
+                  }
+                : null
+            }
+          />
+
           <ThemeToggle />
 
           {session ? (
-            <>
+            <div className="hidden items-center gap-1 sm:flex">
               <Link
                 href="/profile"
                 className="ml-1 flex items-center gap-2 rounded-full border border-[var(--border-strong)] py-1 pl-1 pr-3 transition-colors hover:border-purple-500/40"
@@ -66,7 +79,7 @@ export async function SiteHeader() {
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-[10px] font-semibold text-white shadow-sm">
                   {getInitials(session.name)}
                 </span>
-                <span className="hidden text-xs font-medium text-[var(--foreground)]/85 sm:inline">
+                <span className="text-xs font-medium text-[var(--foreground)]/85">
                   {session.name.split(" ")[0]}
                 </span>
               </Link>
@@ -78,9 +91,9 @@ export async function SiteHeader() {
                   Sign out
                 </button>
               </form>
-            </>
+            </div>
           ) : (
-            <>
+            <div className="hidden items-center gap-1 sm:flex">
               <Link
                 href="/login"
                 className="rounded-full px-3 py-1.5 text-[var(--foreground)]/70 transition-colors hover:bg-[var(--border)] hover:text-[var(--foreground)]"
@@ -93,7 +106,7 @@ export async function SiteHeader() {
               >
                 Sign up
               </Link>
-            </>
+            </div>
           )}
         </nav>
       </div>
