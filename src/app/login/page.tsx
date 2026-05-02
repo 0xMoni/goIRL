@@ -147,10 +147,6 @@ export default async function LoginPage({
           )}
         </p>
 
-        <p className="mt-8 rounded-xl border border-dashed border-black/10 p-3 text-center text-[11px] leading-relaxed text-black/40 dark:border-white/15 dark:text-white/40">
-          Passwordless sign-in via magic link. Google OAuth + calendar access
-          coming with Phase 5.
-        </p>
       </div>
     </main>
   );
