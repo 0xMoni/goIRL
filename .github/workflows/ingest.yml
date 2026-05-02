@@ -42,3 +42,7 @@ jobs:
       - name: Geocode events missing lat/lng
         continue-on-error: true
         run: node scripts/geocode-events.mjs
+
+      - name: Archive events with dead registration URLs
+        continue-on-error: true
+        run: node scripts/cleanup-dead.mjs
