@@ -33,11 +33,6 @@ export function detectUrgency(event: TechEvent, now = new Date()): Urgency {
   return null;
 }
 
-export function daysUntil(iso: string, now = new Date()): number {
-  const d = new Date(iso);
-  return Math.ceil((d.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-}
-
 export function urgencyLabel(u: Urgency): string | null {
   switch (u) {
     case "happening-today":
@@ -113,8 +108,4 @@ export function formatPrice(event: TechEvent): string {
     return "Free";
   }
   return `₹${event.price.toLocaleString("en-IN")}`;
-}
-
-export function getFeaturedEvents(events: TechEvent[]): TechEvent[] {
-  return events.filter((e) => e.isFeatured);
 }

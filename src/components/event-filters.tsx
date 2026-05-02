@@ -27,7 +27,7 @@ export function EventFilters() {
   function updateParam(key: string, value: string | null) {
     const next = setParam(params, key, value);
     startTransition(() => {
-      router.push(`/?${next.toString()}`, { scroll: false });
+      router.push(`/dashboard?${next.toString()}`, { scroll: false });
     });
   }
 
@@ -112,7 +112,7 @@ export function EventFilters() {
           <button
             type="button"
             onClick={() => {
-              startTransition(() => router.push("/", { scroll: false }));
+              startTransition(() => router.push("/dashboard", { scroll: false }));
             }}
             className="ml-auto text-xs font-medium text-black/60 underline-offset-4 hover:underline dark:text-white/60"
           >

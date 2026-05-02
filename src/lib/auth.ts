@@ -19,7 +19,7 @@ function getAdminEmails(): string[] {
     .filter(Boolean);
 }
 
-export function isEmailAdmin(email: string | null | undefined): boolean {
+function isEmailAdmin(email: string | null | undefined): boolean {
   if (!email) return false;
   return getAdminEmails().includes(email.toLowerCase());
 }

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 // Seed events.json into the Supabase events table.
+// NOTE: One-time seed script — NOT part of the daily ingest cron.
+//       Daily ingestion is handled by ingest-mlh, ingest-luma, ingest-devfolio.
 // Usage: node scripts/seed-events.mjs
 
 import { readFileSync } from "node:fs";

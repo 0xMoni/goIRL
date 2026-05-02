@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { EventCard } from "@/components/event-card";
 import { EventFilters } from "@/components/event-filters";
+import { ScrollStrip } from "@/components/scroll-strip";
 import { getUpcomingEvents } from "@/lib/events";
 import { getSession } from "@/lib/auth";
 import { rankEvents, filterByUrgency } from "@/lib/ranking";
@@ -169,7 +170,7 @@ export default async function Dashboard({
       {tabEvents.length === 0 ? (
         <EmptyState tab={tab} hasFilters={hasFiltersActive} hasFollows={hasFollows} />
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {tabEvents.map((e) => (
             <EventCard key={e.id} event={e} />
           ))}
@@ -225,13 +226,13 @@ function UrgencyStrip({
           <p className="text-xs text-black/50 dark:text-white/50">{subtitle}</p>
         </div>
       </div>
-      <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
+      <ScrollStrip>
         {events.map((e) => (
           <div key={e.id} className="w-72 shrink-0">
-            <EventCard event={e} />
+            <EventCard event={e} hideUrgency />
           </div>
         ))}
-      </div>
+      </ScrollStrip>
     </div>
   );
 }

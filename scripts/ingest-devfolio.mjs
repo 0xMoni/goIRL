@@ -146,7 +146,7 @@ function mapRow(h) {
     interested_count: h.participants_count ?? 0,
     vibe_tags: ["competitive", "high-energy", "hands-on"],
     audience: ["students", "early-devs"],
-    is_beginner_friendly: true,
+    is_beginner_friendly: false,
     comfort_note:
       "Hackathons are team-first; if you're solo, team-up channels in Discord usually open a week before.",
     is_featured: !!h.devfolio_official,

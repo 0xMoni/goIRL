@@ -179,7 +179,7 @@ function mapRow(raw, fallbackCity) {
     interested_count: raw.guest_count ?? 0,
     vibe_tags: vibeTags,
     audience: ["early-devs", "senior-devs", "founders", "everyone"],
-    is_beginner_friendly: vibeTags.includes("chill") || vibeTags.includes("social-mixer"),
+    is_beginner_friendly: false,
     comfort_note:
       vibeTags.includes("social-mixer") || vibeTags.includes("networking-heavy")
         ? "Open meetup vibe — come alone, you'll find your people."

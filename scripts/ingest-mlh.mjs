@@ -101,7 +101,7 @@ function mapRow(e) {
     perks: ["MLH swag", "Sponsor prizes", "Mentors on-site", "Free food"],
     vibe_tags: vibeTags,
     audience,
-    is_beginner_friendly: true,
+    is_beginner_friendly: false,
     comfort_note:
       "MLH events are student-heavy and friendly to first-timers - many folks show up solo and team up on day one.",
     is_featured: false,

@@ -23,6 +23,17 @@ export const metadata: Metadata = {
     description:
       "Tech events worth showing up to. Hackathons, meetups, workshops across India and online.",
     type: "website",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "goIRL — Tech events worth showing up to",
+      },
+    ],
+  },
+  icons: {
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
   },
 };
 
