@@ -124,7 +124,7 @@ export default async function LandingPage() {
               {
                 n: "01",
                 title: "Sign up in 20 seconds",
-                body: "Email only. No phone, no KYC, no credit card. Google sign-in coming when we grow.",
+                body: "Just your email. We send a magic link - click it and you're in. No passwords, no phone, no credit card.",
               },
               {
                 n: "02",

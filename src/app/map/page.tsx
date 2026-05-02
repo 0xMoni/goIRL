@@ -62,8 +62,7 @@ export default async function MapPage() {
       </section>
 
       <p className="mt-4 text-xs text-[var(--muted)]">
-        Pins are approximate (city-level). Exact venues coming when we add
-        geocoding in the next build phase. Map © OpenStreetMap contributors.
+        Pins show actual venues where available. Map © OpenStreetMap contributors.
       </p>
     </main>
   );

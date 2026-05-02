@@ -45,6 +45,27 @@ if (error) {
   process.exit(1);
 }
 
+// Step 1: Archive past events (ended more than 24h ago)
+const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+const { data: pastEvents } = await admin
+  .from("events")
+  .select("id, title")
+  .eq("status", "published")
+  .lt("ends_at", cutoff);
+
+if (pastEvents && pastEvents.length > 0) {
+  const pastIds = pastEvents.map((e) => e.id);
+  const { error: pastErr } = await admin
+    .from("events")
+    .update({ status: "archived" })
+    .in("id", pastIds);
+  if (pastErr) console.error("Past archive failed:", pastErr);
+  else console.log(`Archived ${pastIds.length} past events.`);
+} else {
+  console.log("No past events to archive.");
+}
+
+// Step 2: Check live URLs
 console.log(`Checking ${events.length} events for dead URLs…`);
 
 const toArchive = [];

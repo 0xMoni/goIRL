@@ -42,7 +42,7 @@ export default async function SubmitPage({
           </h1>
           <p className="mt-2 text-sm text-black/60 dark:text-white/60">
             We'll review your submission and add it to the feed within 24 hours. You'll
-            get an email when it's live (when we wire up emails - soon).
+            get an email when it's live.
           </p>
           <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
             <Link
@@ -221,8 +221,7 @@ export default async function SubmitPage({
         </div>
 
         <p className="pt-2 text-center text-[11px] text-black/40 dark:text-white/40">
-          Demo mode: submissions aren't stored yet. Once we wire up the DB, this form
-          will land in a moderator queue.
+          Submissions go to a moderator queue. We review and publish within 24 hours.
         </p>
       </form>
     </main>
