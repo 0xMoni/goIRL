@@ -4,18 +4,24 @@ import { getRelativeTimeLabel } from "@/lib/event-utils";
 import { detectUrgency, urgencyLabel } from "@/lib/ranking";
 
 function generateFallbackCover(event: TechEvent): string {
-  // Pick a relevant topic keyword for Unsplash search
-  const topic = event.topics[0]?.toLowerCase() || "technology";
-  const query = encodeURIComponent(`${topic},tech,event`);
+  // Generate gradient background based on event topic
+  const gradients = [
+    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", // purple
+    "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", // pink
+    "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", // cyan
+    "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", // green
+    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", // orange
+    "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", // teal-purple
+    "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", // pastel
+    "linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%)", // coral
+  ];
 
-  // Use event ID as seed for consistent images per event
-  let seed = 0;
+  let hash = 0;
   for (let i = 0; i < event.id.length; i++) {
-    seed = ((seed << 5) - seed + event.id.charCodeAt(i)) | 0;
+    hash = ((hash << 5) - hash + event.id.charCodeAt(i)) | 0;
   }
-  const randomSeed = Math.abs(seed);
 
-  return `https://source.unsplash.com/800x400/?${query}&sig=${randomSeed}`;
+  return gradients[Math.abs(hash) % gradients.length];
 }
 
 export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgency?: boolean }) {
@@ -24,9 +30,9 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
   const urgText = urgencyLabel(urgency);
   const isFeatured = !!event.isFeatured;
 
-  // Generate fallback cover image from Unsplash if none exists
-  const coverImageUrl = event.coverImage || generateFallbackCover(event);
-  const hasCover = !!coverImageUrl;
+  // Use real cover image or generate gradient fallback
+  const hasRealCover = !!event.coverImage;
+  const fallbackGradient = !hasRealCover ? generateFallbackCover(event) : null;
 
   const time = new Date(event.startsAt).toLocaleTimeString("en-IN", {
     hour: "numeric",
@@ -79,10 +85,10 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
       }`}
     >
       {/* Cover image or date block */}
-      {hasCover ? (
+      {hasRealCover ? (
         <div className="relative h-32 w-full overflow-hidden">
           <img
-            src={coverImageUrl}
+            src={event.coverImage}
             alt=""
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
@@ -94,6 +100,40 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
             <span className="text-lg font-extrabold leading-none">{day}</span>
           </div>
           {/* Urgency / featured badges on cover */}
+          <div className="absolute right-2 top-2 flex items-center gap-1.5">
+            {urgText && !hideUrgency && (
+              <span suppressHydrationWarning className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm ${
+                urgency === "happening-today" ? "bg-red-500/90 text-white"
+                  : urgency === "closing-soon" ? "bg-amber-500/90 text-white"
+                  : "bg-blue-500/90 text-white"
+              }`}>
+                {urgText}
+              </span>
+            )}
+            {isFeatured && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+                <svg className="h-2.5 w-2.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                Pick
+              </span>
+            )}
+          </div>
+        </div>
+      ) : fallbackGradient ? (
+        <div className="relative h-32 w-full overflow-hidden">
+          <div
+            className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+            style={{ background: fallbackGradient }}
+            aria-hidden
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          {/* Date badge overlaid on gradient */}
+          <div className="absolute bottom-2 left-2 flex flex-col items-center rounded-lg bg-white/90 dark:bg-black/50 px-2 py-1 text-center shadow-sm backdrop-blur-sm">
+            <span className="text-[8px] font-bold uppercase tracking-wider opacity-75">{month}</span>
+            <span className="text-lg font-extrabold leading-none">{day}</span>
+          </div>
+          {/* Urgency / featured badges on gradient */}
           <div className="absolute right-2 top-2 flex items-center gap-1.5">
             {urgText && !hideUrgency && (
               <span suppressHydrationWarning className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm ${
@@ -185,8 +225,8 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
         </div>
       )}
 
-      {/* Bottom section for cover-image cards */}
-      {hasCover && (
+      {/* Bottom section for cover-image and gradient cards */}
+      {(hasRealCover || fallbackGradient) && (
         <div className="flex flex-1 flex-col gap-1.5 p-4">
           <div className="flex items-center gap-2">
             {event.isFree ? (
