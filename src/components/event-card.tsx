@@ -3,12 +3,34 @@ import type { TechEvent } from "@/types/event";
 import { getRelativeTimeLabel } from "@/lib/event-utils";
 import { detectUrgency, urgencyLabel } from "@/lib/ranking";
 
+function generateFallbackCover(event: TechEvent): string {
+  // Pick a relevant topic keyword for Unsplash search
+  const topic = event.topics[0]?.toLowerCase() || "technology";
+  const query = encodeURIComponent(`${topic},tech,event`);
+
+  // Use event ID as seed for consistent images per event
+  let seed = 0;
+  for (let i = 0; i < event.id.length; i++) {
+    seed = ((seed << 5) - seed + event.id.charCodeAt(i)) | 0;
+  }
+  const randomSeed = Math.abs(seed);
+
+  return `https://source.unsplash.com/800x400/?${query}&sig=${randomSeed}`;
+}
+
 export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgency?: boolean }) {
   const location = event.isVirtual ? "Online" : (event.city ?? "TBA");
   const urgency = detectUrgency(event);
   const urgText = urgencyLabel(urgency);
   const isFeatured = !!event.isFeatured;
-  const hasCover = !!event.coverImage;
+
+  // Generate fallback cover image from Unsplash if none exists
+  const fallbackCover = event.coverImage
+    ? null
+    : generateFallbackCover(event);
+
+  const hasCover = !!event.coverImage || !!fallbackCover;
+  const coverImageUrl = event.coverImage || fallbackCover;
 
   const time = new Date(event.startsAt).toLocaleTimeString("en-IN", {
     hour: "numeric",
@@ -64,7 +86,7 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
       {hasCover ? (
         <div className="relative h-32 w-full overflow-hidden">
           <img
-            src={event.coverImage}
+            src={coverImageUrl}
             alt=""
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
