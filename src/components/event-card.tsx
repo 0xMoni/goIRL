@@ -25,12 +25,8 @@ export function EventCard({ event, hideUrgency }: { event: TechEvent; hideUrgenc
   const isFeatured = !!event.isFeatured;
 
   // Generate fallback cover image from Unsplash if none exists
-  const fallbackCover = event.coverImage
-    ? null
-    : generateFallbackCover(event);
-
-  const hasCover = !!event.coverImage || !!fallbackCover;
-  const coverImageUrl = event.coverImage || fallbackCover;
+  const coverImageUrl = event.coverImage || generateFallbackCover(event);
+  const hasCover = !!coverImageUrl;
 
   const time = new Date(event.startsAt).toLocaleTimeString("en-IN", {
     hour: "numeric",
