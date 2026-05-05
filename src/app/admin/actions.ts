@@ -114,3 +114,24 @@ export async function rejectSubmissionAction(formData: FormData) {
 
   revalidatePath("/admin");
 }
+
+export async function restoreArchivedEventAction(formData: FormData) {
+  await assertAdmin();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const admin = createSupabaseAdminClient();
+
+  // Restore event and reset failure count
+  await admin
+    .from("events")
+    .update({
+      status: "published",
+      url_check_failures: 0,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id);
+
+  revalidatePath("/admin");
+  revalidatePath("/dashboard");
+}

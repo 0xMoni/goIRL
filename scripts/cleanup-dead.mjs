@@ -1,11 +1,32 @@
 #!/usr/bin/env node
-// Archive events whose registration URLs are dead (404/410/gone).
+// Smart URL verification: 3-strike rule before archiving, whitelist for high-value organizers.
 // Safe to run on cron after ingestion.
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+
+// High-value organizers that should never auto-archive
+const PROTECTED_ORGANIZERS = [
+  "figma",
+  "google",
+  "microsoft",
+  "meta",
+  "amazon",
+  "adobe",
+  "apple",
+  "netflix",
+  "stripe",
+  "vercel",
+  "github",
+  "gitlab",
+];
+
+function isProtected(organizer, title) {
+  const searchText = `${organizer} ${title}`.toLowerCase();
+  return PROTECTED_ORGANIZERS.some((org) => searchText.includes(org));
+}
 
 function loadDotEnv(path) {
   try {
@@ -37,7 +58,7 @@ const admin = createClient(url, serviceKey, {
 
 const { data: events, error } = await admin
   .from("events")
-  .select("id, title, register_url")
+  .select("id, title, register_url, organizer, url_check_failures, needs_manual_review")
   .eq("status", "published");
 
 if (error) {
@@ -65,29 +86,100 @@ if (pastEvents && pastEvents.length > 0) {
   console.log("No past events to archive.");
 }
 
-// Step 2: Check live URLs
+// Step 2: Smart URL verification with 3-strike rule
 console.log(`Checking ${events.length} events for dead URLs…`);
 
 const toArchive = [];
+const toFlag = [];
+const toReset = [];
 
 for (const e of events) {
+  // Skip protected events
+  if (e.needs_manual_review || isProtected(e.organizer, e.title)) {
+    if (!e.needs_manual_review) {
+      toFlag.push(e.id);
+      console.log(`  🛡️  Protected: ${e.title.slice(0, 50)}`);
+    }
+    continue;
+  }
+
+  let urlAlive = false;
+
   try {
-    const res = await fetch(e.register_url, {
+    // Try HEAD first
+    let res = await fetch(e.register_url, {
       method: "HEAD",
       redirect: "follow",
       signal: AbortSignal.timeout(8000),
     });
-    if (res.status === 404 || res.status === 410) {
-      toArchive.push(e.id);
-      console.log(`  ✗ ${e.title.slice(0, 50)} → ${res.status}`);
+
+    // If HEAD fails with method not allowed, try GET
+    if (res.status === 405) {
+      res = await fetch(e.register_url, {
+        method: "GET",
+        redirect: "follow",
+        signal: AbortSignal.timeout(8000),
+      });
     }
-  } catch {
-    // Network error / timeout — don't archive, might be temporary
+
+    if (res.status === 404 || res.status === 410) {
+      const failures = (e.url_check_failures || 0) + 1;
+
+      if (failures >= 3) {
+        toArchive.push(e.id);
+        console.log(`  ✗ ${e.title.slice(0, 50)} → ${res.status} (strike ${failures}, archiving)`);
+      } else {
+        await admin
+          .from("events")
+          .update({
+            url_check_failures: failures,
+            last_url_check: new Date().toISOString(),
+          })
+          .eq("id", e.id);
+        console.log(`  ⚠️  ${e.title.slice(0, 50)} → ${res.status} (strike ${failures}/3)`);
+      }
+    } else if (res.ok) {
+      urlAlive = true;
+      // Reset failure count if URL is alive
+      if (e.url_check_failures > 0) {
+        toReset.push(e.id);
+      }
+    }
+  } catch (err) {
+    // Network error / timeout — don't count as failure, might be temporary
+    console.log(`  ⏱️  ${e.title.slice(0, 50)} → timeout/network error (not counted)`);
+  }
+
+  // Update last check timestamp
+  if (urlAlive || toArchive.includes(e.id)) {
+    await admin
+      .from("events")
+      .update({ last_url_check: new Date().toISOString() })
+      .eq("id", e.id);
   }
 }
 
+// Mark protected organizers for manual review
+if (toFlag.length > 0) {
+  await admin
+    .from("events")
+    .update({ needs_manual_review: true })
+    .in("id", toFlag);
+  console.log(`\n🛡️  Flagged ${toFlag.length} high-value events for manual review.`);
+}
+
+// Reset failure counts for recovered URLs
+if (toReset.length > 0) {
+  await admin
+    .from("events")
+    .update({ url_check_failures: 0 })
+    .in("id", toReset);
+  console.log(`✓ Reset failure count for ${toReset.length} recovered URLs.`);
+}
+
+// Archive events with 3+ strikes
 if (toArchive.length === 0) {
-  console.log("✓ All URLs alive.");
+  console.log("\n✓ No events to archive.");
   process.exit(0);
 }
 
@@ -101,4 +193,4 @@ if (archiveErr) {
   process.exit(1);
 }
 
-console.log(`✓ Archived ${toArchive.length} dead events.`);
+console.log(`\n✓ Archived ${toArchive.length} events (3+ failed checks).`);

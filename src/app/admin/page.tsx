@@ -5,13 +5,14 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import {
   approveSubmissionAction,
   rejectSubmissionAction,
+  restoreArchivedEventAction,
 } from "./actions";
 
 export const metadata = {
   title: "Moderation · goIRL",
 };
 
-type Tab = "pending" | "approved" | "rejected";
+type Tab = "pending" | "approved" | "rejected" | "archived";
 
 type SearchParams = { tab?: Tab };
 
@@ -50,21 +51,41 @@ export default async function AdminPage({
   const tab: Tab = sp.tab ?? "pending";
 
   const admin = createSupabaseAdminClient();
-  const { data, error } = await admin
-    .from("pending_events")
-    .select("*")
-    .eq("status", tab)
-    .order("created_at", { ascending: false });
+
+  let data: any[];
+  let error: any;
+
+  if (tab === "archived") {
+    // Show recently archived events (last 7 days)
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const result = await admin
+      .from("events")
+      .select("*")
+      .eq("status", "archived")
+      .gte("updated_at", sevenDaysAgo)
+      .order("updated_at", { ascending: false });
+    data = result.data ?? [];
+    error = result.error;
+  } else {
+    // Show pending submissions
+    const result = await admin
+      .from("pending_events")
+      .select("*")
+      .eq("status", tab)
+      .order("created_at", { ascending: false });
+    data = result.data ?? [];
+    error = result.error;
+  }
 
   if (error) {
     return (
       <main className="mx-auto w-full max-w-4xl px-5 py-10">
-        <p className="text-sm text-red-600">Failed to load submissions: {error.message}</p>
+        <p className="text-sm text-red-600">Failed to load data: {error.message}</p>
       </main>
     );
   }
 
-  const rows = (data ?? []) as PendingRow[];
+  const rows = data;
 
   const counts = await Promise.all(
     (["pending", "approved", "rejected"] as const).map(async (s) => {
@@ -75,7 +96,19 @@ export default async function AdminPage({
       return [s, count ?? 0] as const;
     }),
   );
-  const countMap = Object.fromEntries(counts) as Record<Tab, number>;
+
+  // Count archived events (last 7 days)
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const { count: archivedCount } = await admin
+    .from("events")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "archived")
+    .gte("updated_at", sevenDaysAgo);
+
+  const countMap = {
+    ...Object.fromEntries(counts),
+    archived: archivedCount ?? 0,
+  } as Record<Tab, number>;
 
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-10 sm:py-12">
@@ -92,8 +125,8 @@ export default async function AdminPage({
         </p>
       </header>
 
-      <div className="mb-6 inline-flex rounded-full border border-[var(--border)] p-1 text-xs">
-        {(["pending", "approved", "rejected"] as const).map((t) => (
+      <div className="mb-6 inline-flex flex-wrap rounded-full border border-[var(--border)] p-1 text-xs">
+        {(["pending", "approved", "rejected", "archived"] as const).map((t) => (
           <Link
             key={t}
             href={`/admin?tab=${t}`}
@@ -111,12 +144,16 @@ export default async function AdminPage({
 
       {rows.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-[var(--border)] p-12 text-center text-sm text-[var(--muted)]">
-          No {tab} submissions.
+          {tab === "archived" ? "No recently archived events (last 7 days)." : `No ${tab} submissions.`}
         </div>
       ) : (
         <ul className="flex flex-col gap-4">
           {rows.map((r) => (
-            <SubmissionCard key={r.id} row={r} tab={tab} />
+            tab === "archived" ? (
+              <ArchivedEventCard key={r.id} event={r} />
+            ) : (
+              <SubmissionCard key={r.id} row={r} tab={tab} />
+            )
           ))}
         </ul>
       )}
@@ -215,6 +252,98 @@ function SubmissionCard({ row, tab }: { row: PendingRow; tab: Tab }) {
           </form>
         </div>
       )}
+    </li>
+  );
+}
+
+function ArchivedEventCard({ event }: { event: any }) {
+  const start = new Date(event.starts_at).toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  const archivedAt = new Date(event.updated_at).toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  return (
+    <li className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5 shadow-[var(--shadow-sm)]">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
+            {event.title}
+          </h2>
+          <p className="mt-1 text-xs text-[var(--muted)]">
+            {event.organizer} · {start} ·{" "}
+            {event.is_virtual ? "Online" : event.city ?? "TBA"}
+            <span className="ml-2 text-amber-600 dark:text-amber-400">
+              · Archived {archivedAt}
+            </span>
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-1">
+          {(event.topics || []).map((t: string) => (
+            <span
+              key={t}
+              className="rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-medium text-[var(--muted)]"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {event.why_attend && (
+        <p className="mt-3 text-sm font-medium text-[var(--foreground)]/90">
+          {event.why_attend}
+        </p>
+      )}
+
+      <p className="mt-2 text-sm leading-relaxed text-[var(--muted)] line-clamp-4">
+        {event.description}
+      </p>
+
+      <div className="mt-3 flex flex-wrap gap-4 text-xs text-[var(--muted)]">
+        <a
+          href={event.register_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-[var(--foreground)]"
+        >
+          Registration link ↗
+        </a>
+        {event.url_check_failures > 0 && (
+          <span className="text-amber-600 dark:text-amber-400">
+            ⚠️ URL failed {event.url_check_failures} time(s)
+          </span>
+        )}
+        {event.needs_manual_review && (
+          <span className="text-purple-600 dark:text-purple-400">
+            🛡️ Protected organizer
+          </span>
+        )}
+      </div>
+
+      <div className="mt-4 flex gap-2">
+        <form action={restoreArchivedEventAction}>
+          <input type="hidden" name="id" value={event.id} />
+          <button
+            type="submit"
+            className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+          >
+            Restore to published
+          </button>
+        </form>
+        <a
+          href={event.register_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--muted)] transition-colors hover:bg-[var(--foreground)]/[0.03] hover:text-[var(--foreground)]"
+        >
+          Check URL
+        </a>
+      </div>
     </li>
   );
 }
