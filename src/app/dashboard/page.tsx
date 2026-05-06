@@ -12,6 +12,7 @@ type SearchParams = {
   topic?: string;
   city?: string;
   mode?: "in-person" | "virtual" | "all";
+  vibe?: string;
   q?: string;
   tab?: Tab;
 };
@@ -32,6 +33,7 @@ export default async function Dashboard({
     topic: sp.topic,
     city: sp.city,
     mode: sp.mode,
+    vibe: sp.vibe,
     query: sp.q,
   });
 
@@ -43,7 +45,7 @@ export default async function Dashboard({
   const defaultTab: Tab = hasAnyPrefs ? "top-picks" : "all";
   const tab: Tab = sp.tab ?? defaultTab;
 
-  const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode;
+  const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode || !!sp.vibe;
 
   // Sections that ignore filters - always pull from full upcoming pool
   const fullUpcoming = await getUpcomingEvents({});

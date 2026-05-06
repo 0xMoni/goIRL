@@ -22,6 +22,7 @@ export function EventFilters() {
   const topic = params.get("topic");
   const city = params.get("city") ?? "all";
   const mode = params.get("mode") ?? "all";
+  const vibe = params.get("vibe") ?? "all";
   const q = params.get("q") ?? "";
 
   function updateParam(key: string, value: string | null) {
@@ -108,7 +109,28 @@ export function EventFilters() {
           </select>
         </label>
 
-        {(topic || city !== "all" || mode !== "all" || q) && (
+        <label className="inline-flex items-center gap-2 text-xs text-black/60 dark:text-white/60">
+          Vibe
+          <select
+            value={vibe}
+            onChange={(e) => updateParam("vibe", e.currentTarget.value)}
+            className="rounded-md border border-black/10 bg-white px-2.5 py-1.5 text-xs text-black focus:border-black/40 focus:outline-none dark:border-white/15 dark:bg-white/[0.02] dark:text-white"
+          >
+            <option value="all">All</option>
+            <option value="workshop">🛠️ Workshop</option>
+            <option value="networking-heavy">🤝 Networking-heavy</option>
+            <option value="chill">😌 Chill</option>
+            <option value="competitive">🏆 Competitive</option>
+            <option value="beginner-friendly">👋 Beginner-friendly</option>
+            <option value="talks-only">🎤 Talks-only</option>
+            <option value="social-mixer">🎉 Social mixer</option>
+            <option value="hands-on">🔧 Hands-on</option>
+            <option value="high-energy">⚡ High-energy</option>
+            <option value="intimate">👥 Intimate</option>
+          </select>
+        </label>
+
+        {(topic || city !== "all" || mode !== "all" || vibe !== "all" || q) && (
           <button
             type="button"
             onClick={() => {

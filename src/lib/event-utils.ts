@@ -4,6 +4,7 @@ export type EventFilter = {
   topic?: string;
   city?: string;
   mode?: "in-person" | "virtual" | "all";
+  vibe?: string;
   from?: Date;
   to?: Date;
   query?: string;
@@ -21,6 +22,9 @@ export function filterEvents(events: TechEvent[], filter: EventFilter): TechEven
     }
     if (filter.mode === "in-person" && e.isVirtual) return false;
     if (filter.mode === "virtual" && !e.isVirtual) return false;
+    if (filter.vibe && filter.vibe !== "all") {
+      if (!e.vibeTags || !e.vibeTags.includes(filter.vibe as any)) return false;
+    }
     if (filter.from && new Date(e.startsAt) < filter.from) return false;
     if (filter.to && new Date(e.startsAt) > filter.to) return false;
     if (filter.query) {
