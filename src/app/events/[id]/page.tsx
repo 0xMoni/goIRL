@@ -197,15 +197,74 @@ export default async function EventPage({ params }: { params: Params }) {
         <div className="mt-8 grid grid-cols-1 gap-16 sm:grid-cols-3">
           {/* Main column */}
           <div className="flex flex-col gap-6 sm:col-span-2">
+            {/* Topics */}
+            {event.topics && event.topics.length > 0 && (
+              <section>
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                  Topics
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {event.topics.map((topic) => (
+                    <span
+                      key={topic}
+                      className="inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-700 dark:text-purple-300"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* About */}
             <section>
               <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
                 About this event
               </p>
-              <p className="whitespace-pre-line text-[15px] leading-relaxed text-[var(--foreground)]/80">
-                {event.description}
-              </p>
+              <div className="space-y-3">
+                <p className="whitespace-pre-line text-[15px] leading-relaxed text-[var(--foreground)]/80">
+                  {event.description}
+                </p>
+
+                {/* Show tags if available */}
+                {event.tags && event.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {event.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 rounded-md bg-[var(--foreground)]/[0.04] px-2 py-1 text-xs text-[var(--muted)] dark:bg-white/[0.06]"
+                      >
+                        {tag === "networking" && "🤝"}
+                        {tag === "free-food" && "🍕"}
+                        {tag === "beginner-welcome" && "👋"}
+                        {tag === "workshop" && "🛠️"}
+                        {tag === "competitive" && "🏆"}
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
             </section>
+
+            {/* What you'll get */}
+            {event.perks && event.perks.length > 0 && (
+              <section className="rounded-xl bg-gradient-to-br from-purple-500/[0.07] via-fuchsia-500/[0.04] to-pink-500/[0.07] p-5 ring-1 ring-purple-500/10 dark:from-purple-500/[0.12] dark:via-fuchsia-500/[0.06] dark:to-pink-500/[0.12]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400">
+                  What you'll get
+                </p>
+                <ul className="space-y-2">
+                  {event.perks.map((perk, i) => (
+                    <li key={i} className="flex items-start gap-3 text-[15px] text-[var(--foreground)]">
+                      <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-xs">
+                        ✓
+                      </span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* Vibe + audience */}
             {((event.vibeTags && event.vibeTags.length > 0) || (event.audience && event.audience.length > 0)) && (
@@ -311,22 +370,18 @@ export default async function EventPage({ params }: { params: Params }) {
               </div>
             )}
 
-            {/* Perks */}
-            {event.perks && event.perks.length > 0 && (
-              <div className="rounded-xl bg-[var(--foreground)]/[0.02] p-3.5 ring-1 ring-[var(--border)] dark:bg-white/[0.02]">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">
-                  Perks
-                </p>
-                <ul className="flex flex-col gap-1.5">
-                  {event.perks.map((perk) => (
-                    <li key={perk} className="flex items-start gap-2 text-sm text-[var(--foreground)]/80">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
-                      {perk}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {/* Event source */}
+            <div className="rounded-xl bg-[var(--foreground)]/[0.02] p-3.5 ring-1 ring-[var(--border)] dark:bg-white/[0.02]">
+              <dt className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">
+                Source
+              </dt>
+              <dd className="mt-1 text-sm font-semibold capitalize text-[var(--foreground)]">
+                {event.source === "luma" ? "Lu.ma" : event.source === "mlh" ? "MLH" : event.source === "devfolio" ? "Devfolio" : event.source}
+              </dd>
+              <p className="mt-1 text-xs text-[var(--muted)]">
+                Via {event.organizer}
+              </p>
+            </div>
 
             {/* Calendar card */}
             <div className="overflow-hidden rounded-xl ring-1 ring-[var(--border)]">
