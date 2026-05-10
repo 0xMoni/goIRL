@@ -3,7 +3,7 @@ import Link from "next/link";
 import { EventCard } from "@/components/event-card";
 import { EventFilters } from "@/components/event-filters";
 import { ScrollStrip } from "@/components/scroll-strip";
-import { getUpcomingEvents } from "@/lib/events";
+import { getUpcomingEvents, getPastEvents } from "@/lib/events";
 import { getSession } from "@/lib/auth";
 import { rankEvents, filterByUrgency } from "@/lib/ranking";
 
@@ -15,6 +15,7 @@ type SearchParams = {
   vibe?: string;
   q?: string;
   tab?: Tab;
+  past?: "true";
 };
 
 export const metadata = {
@@ -29,13 +30,17 @@ export default async function Dashboard({
   const sp = await searchParams;
   const session = await getSession();
 
-  const allUpcoming = await getUpcomingEvents({
+  const filterOpts = {
     topic: sp.topic,
     city: sp.city,
     mode: sp.mode,
     vibe: sp.vibe,
     query: sp.q,
-  });
+  };
+
+  const allUpcoming = sp.past === "true"
+    ? await getPastEvents(filterOpts)
+    : await getUpcomingEvents(filterOpts);
 
   const hasFollows = !!session && session.followedTopics.length > 0;
   const hasAnyPrefs =
@@ -45,7 +50,7 @@ export default async function Dashboard({
   const defaultTab: Tab = hasAnyPrefs ? "top-picks" : "all";
   const tab: Tab = sp.tab ?? defaultTab;
 
-  const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode || !!sp.vibe;
+  const hasFiltersActive = !!sp.topic || !!sp.city || !!sp.q || !!sp.mode || !!sp.vibe || sp.past === "true";
 
   // Sections that ignore filters - always pull from full upcoming pool
   const fullUpcoming = await getUpcomingEvents({});

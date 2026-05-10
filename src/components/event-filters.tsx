@@ -24,6 +24,7 @@ export function EventFilters() {
   const mode = params.get("mode") ?? "all";
   const vibe = params.get("vibe") ?? "all";
   const q = params.get("q") ?? "";
+  const past = params.get("past") === "true";
 
   function updateParam(key: string, value: string | null) {
     const next = setParam(params, key, value);
@@ -130,7 +131,17 @@ export function EventFilters() {
           </select>
         </label>
 
-        {(topic || city !== "all" || mode !== "all" || vibe !== "all" || q) && (
+        <label className="inline-flex cursor-pointer items-center gap-2 text-xs text-black/60 dark:text-white/60">
+          <input
+            type="checkbox"
+            checked={past}
+            onChange={(e) => updateParam("past", e.currentTarget.checked ? "true" : null)}
+            className="h-3.5 w-3.5 rounded border-black/20 accent-purple-600 dark:border-white/20"
+          />
+          Show past events
+        </label>
+
+        {(topic || city !== "all" || mode !== "all" || vibe !== "all" || q || past) && (
           <button
             type="button"
             onClick={() => {

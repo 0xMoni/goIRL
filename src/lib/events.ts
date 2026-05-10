@@ -113,3 +113,10 @@ export async function getUpcomingEvents(filter: EventFilter = {}): Promise<TechE
   const futureOrOngoing = all.filter((e) => new Date(e.endsAt) >= now);
   return sortByStart(filterEvents(futureOrOngoing, filter));
 }
+
+export async function getPastEvents(filter: EventFilter = {}): Promise<TechEvent[]> {
+  const now = new Date();
+  const all = await getAllEvents();
+  const past = all.filter((e) => new Date(e.endsAt) < now);
+  return sortByStart(filterEvents(past, filter), "desc");
+}

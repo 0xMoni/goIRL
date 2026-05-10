@@ -14,6 +14,9 @@ import { detectUrgency, urgencyLabel, formatPrice } from "@/lib/ranking";
 import { getSession } from "@/lib/auth";
 import { toggleRsvpAction } from "@/lib/auth-actions";
 import { VenueMap } from "@/components/venue-map";
+import { EventReviews } from "@/components/event-reviews";
+import { ReviewForm } from "@/components/review-form";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type Params = Promise<{ id: string }>;
 
@@ -34,6 +37,21 @@ export default async function EventPage({ params }: { params: Params }) {
 
   const session = await getSession();
   const isGoing = session?.rsvps.includes(event.id) ?? false;
+
+  // Fetch user's existing review for this event
+  let existingReview: { rating: number; comment: string | null } | null = null;
+  if (session) {
+    const supabase = await createSupabaseServerClient();
+    const { data: reviewData } = await supabase
+      .from("reviews")
+      .select("rating, comment")
+      .eq("user_id", session.userId)
+      .eq("event_id", event.id)
+      .maybeSingle();
+    if (reviewData) {
+      existingReview = reviewData as { rating: number; comment: string | null };
+    }
+  }
 
   const allEvents = await getAllEvents();
   const similarEvents = allEvents
@@ -456,6 +474,21 @@ export default async function EventPage({ params }: { params: Params }) {
                 <EventCard key={e.id} event={e} />
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Reviews - only for past events */}
+        {new Date(event.endsAt) < new Date() && (
+          <div className="mt-12 border-t border-[var(--border)] pt-8">
+            <h2 className="mb-5 text-xl font-bold tracking-tight text-[var(--foreground)]">
+              Reviews
+            </h2>
+            <EventReviews eventId={event.id} />
+            <ReviewForm
+              eventId={event.id}
+              session={session ? { userId: session.userId, name: session.name } : null}
+              existingReview={existingReview}
+            />
           </div>
         )}
       </div>
