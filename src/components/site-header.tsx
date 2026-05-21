@@ -3,6 +3,7 @@ import { getSession, getInitials } from "@/lib/auth";
 import { signOutAction } from "@/lib/auth-actions";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
+import { ShareButton } from "@/components/share-button";
 
 export async function SiteHeader() {
   const session = await getSession();
@@ -66,6 +67,13 @@ export async function SiteHeader() {
                   }
                 : null
             }
+          />
+
+          <ShareButton
+            title="goIRL - Tech Events in India"
+            text="Discover tech events in India worth showing up to"
+            url="https://goirl-tau.vercel.app"
+            variant="icon-only"
           />
 
           <ThemeToggle />
