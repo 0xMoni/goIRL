@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
+import { PwaRegister } from "@/components/pwa-register";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,12 @@ export default async function RootLayout({
   return (
     <html lang="en" className={htmlClass} suppressHydrationWarning>
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#7c3aed" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="goIRL" />
+        <link rel="apple-touch-icon" href="/icons/icon.svg" />
         {!theme && (
           <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
         )}
@@ -60,6 +67,7 @@ export default async function RootLayout({
       <body className="min-h-full bg-[var(--background)] font-sans text-[var(--foreground)]">
         <SiteHeader />
         {children}
+        <PwaRegister />
       </body>
     </html>
   );
