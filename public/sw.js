@@ -1,5 +1,5 @@
 /// Service Worker for goIRL PWA
-const CACHE_NAME = "goirl-v1";
+const CACHE_NAME = "goirl-v2";
 const OFFLINE_URL = "/offline.html";
 
 // Files to cache on install (app shell)
